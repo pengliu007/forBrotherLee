@@ -3,7 +3,7 @@ package logic
 import (
 	"errors"
 	"fmt"
-	"git.woa.com/forBrotherLee/tables"
+	"github.com/pengliu007/forBrotherLee/tables"
 	"gorm.io/gorm"
 	"time"
 )

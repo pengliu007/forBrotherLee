@@ -2,8 +2,7 @@ package main
 
 import (
 	"fmt"
-	"git.woa.com/forBrotherLee/logic"
-	//"git.woa.com/forBrotherLee"
+	"github.com/pengliu007/forBrotherLee/logic"
 	"github.com/tealeg/xlsx"
 	"os"
 )

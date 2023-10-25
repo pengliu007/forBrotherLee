@@ -2,7 +2,7 @@ package logic
 
 import (
 	"fmt"
-	"git.woa.com/forBrotherLee/tables"
+	"github.com/pengliu007/forBrotherLee/tables"
 	"github.com/tealeg/xlsx"
 	"gorm.io/driver/mysql"
 	"gorm.io/gorm"

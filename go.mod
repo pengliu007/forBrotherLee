@@ -1,4 +1,5 @@
-module git.woa.com/forBrotherLee
+module github.com/pengliu007/forBrotherLee
+
 
 go 1.18
 
