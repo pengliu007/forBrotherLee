@@ -134,7 +134,7 @@ func (m *LiverStiffnessService) Merge() (err error) {
 	pageIndex := 1
 	for {
 		dataList := make([]*tables.TLiverStiffness, 0)
-		err = m.db.Table(tables.TableLiverStiffness).Select(tables.TableLiverStiffnessFields).Order("name asc,visitCardId asc,visitTime desc").
+		err = m.db.Table(tables.TableLiverStiffness).Select(tables.TableLiverStiffnessFields).Order("name asc,visitCardId asc,visitTime asc").
 			Limit(pageSize).Offset((pageIndex - 1) * pageSize).Find(&dataList).Error
 		if nil != err {
 			fmt.Printf("获取数据异常 pageIndex：%d\n", pageIndex)
@@ -169,8 +169,9 @@ func (m *LiverStiffnessService) Merge() (err error) {
 }
 
 func (m *LiverStiffnessService) mateAndWriteCollect(dataLiverStiffness *tables.TLiverStiffness) (err error) {
+	// 匹配多条改为只匹配最近一条 所以两者排序都换了方向
 	collectList, err := GetCollectList(m.db, dataLiverStiffness.Name, dataLiverStiffness.VisitCardID,
-		dataLiverStiffness.VisitTime-14, dataLiverStiffness.VisitTime+14, "asc")
+		dataLiverStiffness.VisitTime-21, dataLiverStiffness.VisitTime, "desc")
 	if err != nil {
 		m.mergeErr++
 		return err
@@ -181,43 +182,78 @@ func (m *LiverStiffnessService) mateAndWriteCollect(dataLiverStiffness *tables.T
 			dataLiverStiffness.VisitCardID)
 		return nil
 	}
-	for i, collectData := range collectList {
-		if len(collectData.F180) > 0 || len(collectData.F181) > 0 || len(collectData.F182) > 0 ||
-			len(collectData.F183) > 0 || len(collectData.F184) > 0 || len(collectData.F185) > 0 ||
-			len(collectData.F189) > 0 || len(collectData.F190) > 0 {
-			fmt.Printf("肝硬度touch匹配到到总表数据共【%d】条，第【%d】条已存在监测记录，继续匹配！！姓名【%s】,"+
-				"就诊卡号[%s] 总表时间【%d】,touch表时间【%d】\n", len(collectList), i+1, dataLiverStiffness.Name,
-				dataLiverStiffness.VisitCardID, collectData.VisitTime, dataLiverStiffness.VisitTime)
-			m.mergeConflict++
-			if i == len(collectList)-1 {
-				fmt.Printf("肝硬度touch匹配到到总表数据共【%d】条 全都冲突，匹配失败！！姓名【%s】,"+
-					"就诊卡号[%s] 总表时间【%d】,touch表时间【%d】\n", len(collectList), dataLiverStiffness.Name,
-					dataLiverStiffness.VisitCardID, collectData.VisitTime, dataLiverStiffness.VisitTime)
-				m.mergeFaild++
-			}
-			continue
-		}
-		collectData.F180 = dataLiverStiffness.FiberScansSucNum
-		collectData.F181 = dataLiverStiffness.FatAttenuation
-		collectData.F182 = dataLiverStiffness.FatAttenuationQuartileDifference
-		collectData.F183 = dataLiverStiffness.Hardness
-		collectData.F184 = dataLiverStiffness.HardnessQuartileDifference
-		collectData.F185 = dataLiverStiffness.FiberScansTotalNum
-		collectData.F186 = dataLiverStiffness.Phone
-		collectData.F187 = dataLiverStiffness.Height
-		collectData.F188 = dataLiverStiffness.Weight
-		collectData.F189 = dataLiverStiffness.DetectionDuration
-		collectData.F190 = dataLiverStiffness.SucNums
-
-		err = UpdateCollect(m.db, collectData)
-		if err != nil {
-			m.mergeErr++
-			return err
-		}
-		m.mergeSuc++
+	collectData := collectList[0]
+	if (len(collectData.F180) > 0 && collectData.F180 != dataLiverStiffness.FiberScansSucNum) ||
+		(len(collectData.F181) > 0 && collectData.F181 != dataLiverStiffness.FatAttenuation) ||
+		(len(collectData.F182) > 0 && collectData.F182 != dataLiverStiffness.FatAttenuationQuartileDifference) ||
+		(len(collectData.F183) > 0 && collectData.F183 != dataLiverStiffness.Hardness) ||
+		(len(collectData.F184) > 0 && collectData.F184 != dataLiverStiffness.HardnessQuartileDifference) ||
+		(len(collectData.F185) > 0 && collectData.F185 != dataLiverStiffness.FiberScansTotalNum) ||
+		(len(collectData.F189) > 0 && collectData.F189 != dataLiverStiffness.DetectionDuration) ||
+		(len(collectData.F190) > 0 && collectData.F190 != dataLiverStiffness.SucNums) {
+		fmt.Printf("肝硬度touch匹配冲突，覆盖！！总表id【%d】,touch表id【%d】姓名【%s】,就诊卡号[%s] \n",
+			collectData.ID, dataLiverStiffness.ID, dataLiverStiffness.Name, dataLiverStiffness.VisitCardID)
+		m.mergeConflict++
+	} else {
 		fmt.Printf("肝硬度touch匹配成功，和入总表！！总表id【%d】,touch表id【%d】姓名【%s】,就诊卡号[%s] \n",
 			collectData.ID, dataLiverStiffness.ID, dataLiverStiffness.Name, dataLiverStiffness.VisitCardID)
+		m.mergeSuc++
 	}
+	collectData.F180 = dataLiverStiffness.FiberScansSucNum
+	collectData.F181 = dataLiverStiffness.FatAttenuation
+	collectData.F182 = dataLiverStiffness.FatAttenuationQuartileDifference
+	collectData.F183 = dataLiverStiffness.Hardness
+	collectData.F184 = dataLiverStiffness.HardnessQuartileDifference
+	collectData.F185 = dataLiverStiffness.FiberScansTotalNum
+	collectData.F186 = dataLiverStiffness.Phone
+	collectData.F187 = dataLiverStiffness.Height
+	collectData.F188 = dataLiverStiffness.Weight
+	collectData.F189 = dataLiverStiffness.DetectionDuration
+	collectData.F190 = dataLiverStiffness.SucNums
+
+	err = UpdateCollect(m.db, collectData)
+	if err != nil {
+		m.mergeErr++
+		return err
+	}
+
+	//for i, collectData := range collectList {
+	//	if len(collectData.F180) > 0 || len(collectData.F181) > 0 || len(collectData.F182) > 0 ||
+	//		len(collectData.F183) > 0 || len(collectData.F184) > 0 || len(collectData.F185) > 0 ||
+	//		len(collectData.F189) > 0 || len(collectData.F190) > 0 {
+	//		fmt.Printf("肝硬度touch匹配到到总表数据共【%d】条，第【%d】条已存在监测记录，继续匹配！！姓名【%s】,"+
+	//			"就诊卡号[%s] 总表时间【%d】,touch表时间【%d】\n", len(collectList), i+1, dataLiverStiffness.Name,
+	//			dataLiverStiffness.VisitCardID, collectData.VisitTime, dataLiverStiffness.VisitTime)
+	//		m.mergeConflict++
+	//		if i == len(collectList)-1 {
+	//			fmt.Printf("肝硬度touch匹配到到总表数据共【%d】条 全都冲突，匹配失败！！姓名【%s】,"+
+	//				"就诊卡号[%s] 总表时间【%d】,touch表时间【%d】\n", len(collectList), dataLiverStiffness.Name,
+	//				dataLiverStiffness.VisitCardID, collectData.VisitTime, dataLiverStiffness.VisitTime)
+	//			m.mergeFaild++
+	//		}
+	//		continue
+	//	}
+	//	collectData.F180 = dataLiverStiffness.FiberScansSucNum
+	//	collectData.F181 = dataLiverStiffness.FatAttenuation
+	//	collectData.F182 = dataLiverStiffness.FatAttenuationQuartileDifference
+	//	collectData.F183 = dataLiverStiffness.Hardness
+	//	collectData.F184 = dataLiverStiffness.HardnessQuartileDifference
+	//	collectData.F185 = dataLiverStiffness.FiberScansTotalNum
+	//	collectData.F186 = dataLiverStiffness.Phone
+	//	collectData.F187 = dataLiverStiffness.Height
+	//	collectData.F188 = dataLiverStiffness.Weight
+	//	collectData.F189 = dataLiverStiffness.DetectionDuration
+	//	collectData.F190 = dataLiverStiffness.SucNums
+	//
+	//	err = UpdateCollect(m.db, collectData)
+	//	if err != nil {
+	//		m.mergeErr++
+	//		return err
+	//	}
+	//	m.mergeSuc++
+	//	fmt.Printf("肝硬度touch匹配成功，和入总表！！总表id【%d】,touch表id【%d】姓名【%s】,就诊卡号[%s] \n",
+	//		collectData.ID, dataLiverStiffness.ID, dataLiverStiffness.Name, dataLiverStiffness.VisitCardID)
+	//}
 
 	return nil
 }

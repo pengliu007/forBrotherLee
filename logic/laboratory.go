@@ -285,288 +285,571 @@ func (m *LaboratoryService) checkMergerConflict(collectInfo *tables.TCollect, da
 	isConflict = false
 	// 外层已判断过mapkey 直接用即可
 	projectName := projectNameMap[dataLaboratory.ProjectName]
-	if strings.Trim(projectName, " ") == "甲胎蛋白" && len(collectInfo.F99) > 0 {
-		isConflict = true
-	} else if strings.Trim(projectName, " ") == "糖链抗原CA19-9" && len(collectInfo.F100) > 0 {
-		isConflict = true
-	} else if strings.Trim(projectName, " ") == "糖链抗原CA125" && len(collectInfo.F101) > 0 {
-		isConflict = true
-	} else if strings.Trim(projectName, " ") == "癌胚抗原(CEA)" && len(collectInfo.F102) > 0 {
-		isConflict = true
-	} else if strings.Trim(projectName, " ") == "糖类抗原CA15-3" && len(collectInfo.F103) > 0 {
-		isConflict = true
-	} else if strings.Trim(projectName, " ") == "糖链抗原CA72-4" && len(collectInfo.F104) > 0 {
-		isConflict = true
-	} else if strings.Trim(projectName, " ") == "抗Jo-1" && len(collectInfo.F154) > 0 {
-		isConflict = true
-	} else if strings.Trim(projectName, " ") == "天门冬氨酸转氨酶(AST)" && len(collectInfo.F39) > 0 {
-		isConflict = true
-	} else if strings.Trim(projectName, " ") == "线粒体型天门冬氨酸转氨酶" && len(collectInfo.F37) > 0 {
-		isConflict = true
-	} else if strings.Trim(projectName, " ") == "维生素D3" && len(collectInfo.F105) > 0 {
-		isConflict = true
-	} else if strings.Trim(projectName, " ") == "总三碘甲状腺原氨酸" && len(collectInfo.F112) > 0 {
-		isConflict = true
-	} else if strings.Trim(projectName, " ") == "促甲状腺激素" && len(collectInfo.F114) > 0 {
-		isConflict = true
-	} else if strings.Trim(projectName, " ") == "ANA（IIF）" && len(collectInfo.F162) > 0 {
-		isConflict = true
-	} else if strings.Trim(projectName, " ") == "抗核抗体（定性）" && len(collectInfo.F144) > 0 {
-		isConflict = true
-	} else if strings.Trim(projectName, " ") == "抗PML" && len(collectInfo.F169) > 0 {
-		isConflict = true
-	} else if strings.Trim(projectName, " ") == "抗线粒体M2" && len(collectInfo.F174) > 0 {
-		isConflict = true
-	} else if strings.Trim(projectName, " ") == "pANCA" && len(collectInfo.F175) > 0 {
-		isConflict = true
-	} else if strings.Trim(projectName, " ") == "cANCA" && len(collectInfo.F176) > 0 {
-		isConflict = true
-	} else if strings.Trim(projectName, " ") == "抗核小体" && len(collectInfo.F158) > 0 {
-		isConflict = true
-	} else if strings.Trim(projectName, " ") == "抗sm抗体" && len(collectInfo.F177) > 0 {
-		isConflict = true
-	} else if strings.Trim(projectName, " ") == "抗SSA" && len(collectInfo.F149) > 0 {
-		isConflict = true
-	} else if strings.Trim(projectName, " ") == "抗SSB" && len(collectInfo.F151) > 0 {
-		isConflict = true
-	} else if strings.Trim(projectName, " ") == "抗ScL-70" && len(collectInfo.F152) > 0 {
-		isConflict = true
-	} else if strings.Trim(projectName, " ") == "抗PM-Scl" && len(collectInfo.F153) > 0 {
-		isConflict = true
-	} else if strings.Trim(projectName, " ") == "抗Ro-52" && len(collectInfo.F150) > 0 {
-		isConflict = true
-	} else if strings.Trim(projectName, " ") == "抗核抗体（1：10）" && len(collectInfo.F126) > 0 {
-		isConflict = true
-	} else if strings.Trim(projectName, " ") == "抗核抗体（1：20）" && len(collectInfo.F127) > 0 {
-		isConflict = true
-	} else if strings.Trim(projectName, " ") == "抗核抗体(1:100)" && len(collectInfo.F131) > 0 {
-		isConflict = true
-	} else if strings.Trim(projectName, " ") == "抗核抗体(1:160)" && len(collectInfo.F132) > 0 {
-		isConflict = true
-	} else if strings.Trim(projectName, " ") == "抗核抗体(1:320)" && len(collectInfo.F133) > 0 {
-		isConflict = true
-	} else if strings.Trim(projectName, " ") == "抗核抗体(1:10000)" && len(collectInfo.F140) > 0 {
-		isConflict = true
-	} else if strings.Trim(projectName, " ") == "1：100000" && len(collectInfo.F142) > 0 {
-		isConflict = true
-	} else if strings.Trim(projectName, " ") == "抗核抗体(1:1000)" && len(collectInfo.F135) > 0 {
-		isConflict = true
-	} else if strings.Trim(projectName, " ") == "抗核抗体(1:2560)" && len(collectInfo.F137) > 0 {
-		isConflict = true
-	} else if strings.Trim(projectName, " ") == "抗核抗体(1:1280)" && len(collectInfo.F136) > 0 {
-		isConflict = true
-	} else if strings.Trim(projectName, " ") == "抗核抗体(1:3200)" && len(collectInfo.F138) > 0 {
-		isConflict = true
-	} else if strings.Trim(projectName, " ") == "抗nRNP/Sm" && len(collectInfo.F147) > 0 {
-		isConflict = true
-	} else if strings.Trim(projectName, " ") == "抗核抗体(1:32)" && len(collectInfo.F128) > 0 {
-		isConflict = true
-	} else if strings.Trim(projectName, " ") == "快速血沉试验" && len(collectInfo.F109) > 0 {
-		isConflict = true
-	} else if strings.Trim(projectName, " ") == "血清免疫球蛋白M" && len(collectInfo.F82) > 0 {
-		isConflict = true
-	} else if strings.Trim(projectName, " ") == "血清免疫球蛋白A" && len(collectInfo.F81) > 0 {
-		isConflict = true
-	} else if strings.Trim(projectName, " ") == "血清免疫球蛋白G" && len(collectInfo.F80) > 0 {
-		isConflict = true
-	} else if strings.Trim(projectName, " ") == "超敏C反应蛋白" && len(collectInfo.F88) > 0 {
-		isConflict = true
-	} else if strings.Trim(projectName, " ") == "尿白细胞定量" && len(collectInfo.F121) > 0 {
-		isConflict = true
-	} else if strings.Trim(projectName, " ") == "抗EBV衣壳抗体IgG" && len(collectInfo.F90) > 0 {
-		isConflict = true
-	} else if strings.Trim(projectName, " ") == "抗EBV早期抗体IgG" && len(collectInfo.F92) > 0 {
-		isConflict = true
-	} else if strings.Trim(projectName, " ") == "抗着丝点蛋白B" && len(collectInfo.F155) > 0 {
-		isConflict = true
-	} else if strings.Trim(projectName, " ") == "1,3-β-D葡聚糖(血液)" && len(collectInfo.F107) > 0 {
-		isConflict = true
-	} else if strings.Trim(projectName, " ") == "胱抑素C" && len(collectInfo.F68) > 0 {
-		isConflict = true
-	} else if strings.Trim(projectName, " ") == "免疫球蛋白G亚类4" && len(collectInfo.F84) > 0 {
-		isConflict = true
-	} else if strings.Trim(projectName, " ") == "免疫球蛋白G亚类3" && len(collectInfo.F85) > 0 {
-		isConflict = true
-	} else if strings.Trim(projectName, " ") == "免疫球蛋白G亚类2" && len(collectInfo.F86) > 0 {
-		isConflict = true
-	} else if strings.Trim(projectName, " ") == "免疫球蛋白G亚类1" && len(collectInfo.F87) > 0 {
-		isConflict = true
-	} else if strings.Trim(projectName, " ") == "白细胞计数" && len(collectInfo.F27) > 0 {
-		isConflict = true
-	} else if strings.Trim(projectName, " ") == "中性粒细胞绝对值" && len(collectInfo.F28) > 0 {
-		isConflict = true
-	} else if strings.Trim(projectName, " ") == "淋巴细胞绝对值" && len(collectInfo.F29) > 0 {
-		isConflict = true
-	} else if strings.Trim(projectName, " ") == "单核细胞绝对值" && len(collectInfo.F30) > 0 {
-		isConflict = true
-	} else if strings.Trim(projectName, " ") == "红细胞计数" && len(collectInfo.F31) > 0 {
-		isConflict = true
-	} else if strings.Trim(projectName, " ") == "血红蛋白" && len(collectInfo.F32) > 0 {
-		isConflict = true
-	} else if strings.Trim(projectName, " ") == "血细胞比容" && len(collectInfo.F33) > 0 {
-		isConflict = true
-	} else if strings.Trim(projectName, " ") == "平均红细胞体积" && len(collectInfo.F34) > 0 {
-		isConflict = true
-	} else if strings.Trim(projectName, " ") == "血小板计数" && len(collectInfo.F35) > 0 {
-		isConflict = true
-	} else if strings.Trim(projectName, " ") == "腺苷脱氨酶" && len(collectInfo.F36) > 0 {
-		isConflict = true
-	} else if strings.Trim(projectName, " ") == "丙氨酸氨基转移酶(ALT)" && len(collectInfo.F38) > 0 {
-		isConflict = true
-	} else if strings.Trim(projectName, " ") == "总蛋白" && len(collectInfo.F40) > 0 {
-		isConflict = true
-	} else if strings.Trim(projectName, " ") == "球蛋白" && len(collectInfo.F41) > 0 {
-		isConflict = true
-	} else if strings.Trim(projectName, " ") == "白蛋白" && len(collectInfo.F42) > 0 {
-		isConflict = true
-	} else if strings.Trim(projectName, " ") == "总胆红素" && len(collectInfo.F43) > 0 {
-		isConflict = true
-	} else if strings.Trim(projectName, " ") == "直接胆红素" && len(collectInfo.F44) > 0 {
-		isConflict = true
-	} else if strings.Trim(projectName, " ") == "间接胆红素" && len(collectInfo.F45) > 0 {
-		isConflict = true
-	} else if strings.Trim(projectName, " ") == "碱性磷酸酶" && len(collectInfo.F46) > 0 {
-		isConflict = true
-	} else if strings.Trim(projectName, " ") == "γ-谷氨酰基转移酶" && len(collectInfo.F47) > 0 {
-		isConflict = true
-	} else if strings.Trim(projectName, " ") == "总胆汁酸" && len(collectInfo.F48) > 0 {
-		isConflict = true
-	} else if strings.Trim(projectName, " ") == "亮氨酸氨基肽酶" && len(collectInfo.F49) > 0 {
-		isConflict = true
-	} else if strings.Trim(projectName, " ") == "白蛋白/球蛋白" && len(collectInfo.F50) > 0 {
-		isConflict = true
-	} else if strings.Trim(projectName, " ") == "AST/ALT" && len(collectInfo.F51) > 0 {
-		isConflict = true
-	} else if strings.Trim(projectName, " ") == "总胆固醇" && len(collectInfo.F52) > 0 {
-		isConflict = true
-	} else if strings.Trim(projectName, " ") == "甘油三脂" && len(collectInfo.F53) > 0 {
-		isConflict = true
-	} else if strings.Trim(projectName, " ") == "高密度脂蛋白胆固醇" && len(collectInfo.F54) > 0 {
-		isConflict = true
-	} else if strings.Trim(projectName, " ") == "低密度脂蛋白胆固醇(LDL_C)" && len(collectInfo.F55) > 0 {
-		isConflict = true
-	} else if strings.Trim(projectName, " ") == "尿素" && len(collectInfo.F56) > 0 {
-		isConflict = true
-	} else if strings.Trim(projectName, " ") == "肌酐" && len(collectInfo.F57) > 0 {
-		isConflict = true
-	} else if strings.Trim(projectName, " ") == "葡萄糖" && len(collectInfo.F58) > 0 {
-		isConflict = true
-	} else if strings.Trim(projectName, " ") == "糖化血红蛋白" && len(collectInfo.F59) > 0 {
-		isConflict = true
-	} else if strings.Trim(projectName, " ") == "尿酸" && len(collectInfo.F60) > 0 {
-		isConflict = true
-	} else if strings.Trim(projectName, " ") == "载脂蛋白A1" && len(collectInfo.F61) > 0 {
-		isConflict = true
-	} else if strings.Trim(projectName, " ") == "载脂蛋白B" && len(collectInfo.F62) > 0 {
-		isConflict = true
-	} else if strings.Trim(projectName, " ") == "钾" && len(collectInfo.F63) > 0 {
-		isConflict = true
-	} else if strings.Trim(projectName, " ") == "钠" && len(collectInfo.F64) > 0 {
-		isConflict = true
-	} else if strings.Trim(projectName, " ") == "氯" && len(collectInfo.F65) > 0 {
-		isConflict = true
-	} else if strings.Trim(projectName, " ") == "总钙" && len(collectInfo.F66) > 0 {
-		isConflict = true
-	} else if strings.Trim(projectName, " ") == "二氧化碳" && len(collectInfo.F67) > 0 {
-		isConflict = true
-	} else if strings.Trim(projectName, " ") == "无机磷" && len(collectInfo.F69) > 0 {
-		isConflict = true
-	} else if strings.Trim(projectName, " ") == "肌酸激酶" && len(collectInfo.F70) > 0 {
-		isConflict = true
-	} else if strings.Trim(projectName, " ") == "血清胆碱脂酶" && len(collectInfo.F71) > 0 {
-		isConflict = true
-	} else if strings.Trim(projectName, " ") == "凝血酶原时间" && len(collectInfo.F72) > 0 {
-		isConflict = true
-	} else if strings.Trim(projectName, " ") == "活化部分凝血活酶时间" && len(collectInfo.F73) > 0 {
-		isConflict = true
-	} else if strings.Trim(projectName, " ") == "纤维蛋白原含量" && len(collectInfo.F74) > 0 {
-		isConflict = true
-	} else if strings.Trim(projectName, " ") == "凝血酶时间" && len(collectInfo.F75) > 0 {
-		isConflict = true
-	} else if strings.Trim(projectName, " ") == "D-二聚体" && len(collectInfo.F76) > 0 {
-		isConflict = true
-	} else if strings.Trim(projectName, " ") == "纤维蛋白原降解产物(血浆)" && len(collectInfo.F77) > 0 {
-		isConflict = true
-	} else if strings.Trim(projectName, " ") == "凝血酶原活动度" && len(collectInfo.F78) > 0 {
-		isConflict = true
-	} else if strings.Trim(projectName, " ") == "PT国际标准化比值" && len(collectInfo.F79) > 0 {
-		isConflict = true
-	} else if strings.Trim(projectName, " ") == "血清免疫球蛋白E" && len(collectInfo.F83) > 0 {
-		isConflict = true
-	} else if strings.Trim(projectName, " ") == "巨细胞病毒抗体IgM" && len(collectInfo.F89) > 0 {
-		isConflict = true
-	} else if strings.Trim(projectName, " ") == "抗EBV核抗体IgG" && len(collectInfo.F91) > 0 {
-		isConflict = true
-	} else if strings.Trim(projectName, " ") == "抗EBV衣壳抗体IgM" && len(collectInfo.F93) > 0 {
-		isConflict = true
-	} else if strings.Trim(projectName, " ") == "抗EBV壳抗体IgG亲合力" && len(collectInfo.F94) > 0 {
-		isConflict = true
-	} else if strings.Trim(projectName, " ") == "EBV Zta蛋白抗体IgA" && len(collectInfo.F95) > 0 {
-		isConflict = true
-	} else if strings.Trim(projectName, " ") == "抗EBV衣壳抗体IgA" && len(collectInfo.F96) > 0 {
-		isConflict = true
-	} else if strings.Trim(projectName, " ") == "抗EBV核抗体IgA" && len(collectInfo.F97) > 0 {
-		isConflict = true
-	} else if strings.Trim(projectName, " ") == "异常凝血酶原" && len(collectInfo.F98) > 0 {
-		isConflict = true
-	} else if strings.Trim(projectName, " ") == "内毒素定量(血液)" && len(collectInfo.F106) > 0 {
-		isConflict = true
-	} else if strings.Trim(projectName, " ") == "血浆氨" && len(collectInfo.F108) > 0 {
-		isConflict = true
-	} else if strings.Trim(projectName, " ") == "游离三碘甲状腺原氨酸" && len(collectInfo.F110) > 0 {
-		isConflict = true
-	} else if strings.Trim(projectName, " ") == "游离甲状腺素" && len(collectInfo.F111) > 0 {
-		isConflict = true
-	} else if strings.Trim(projectName, " ") == "总甲状腺素" && len(collectInfo.F113) > 0 {
-		isConflict = true
-	} else if strings.Trim(projectName, " ") == "尿白细胞定性" && len(collectInfo.F115) > 0 {
-		isConflict = true
-	} else if strings.Trim(projectName, " ") == "尿蛋白定性" && len(collectInfo.F116) > 0 {
-		isConflict = true
-	} else if strings.Trim(projectName, " ") == "尿胆原定性" && len(collectInfo.F117) > 0 {
-		isConflict = true
-	} else if strings.Trim(projectName, " ") == "尿胆红素定性" && len(collectInfo.F118) > 0 {
-		isConflict = true
-	} else if strings.Trim(projectName, " ") == "尿红细胞定性" && len(collectInfo.F119) > 0 {
-		isConflict = true
-	} else if strings.Trim(projectName, " ") == "尿红细胞定量" && len(collectInfo.F120) > 0 {
-		isConflict = true
-	} else if strings.Trim(projectName, " ") == "尿细菌定量" && len(collectInfo.F122) > 0 {
-		isConflict = true
-	} else if strings.Trim(projectName, " ") == "抗U1-nRNP抗体" && len(collectInfo.F145) > 0 {
-		isConflict = true
-	} else if strings.Trim(projectName, " ") == "抗U1-snRNP抗体" && len(collectInfo.F146) > 0 {
-		isConflict = true
-	} else if strings.Trim(projectName, " ") == "抗增殖细胞核抗原" && len(collectInfo.F156) > 0 {
-		isConflict = true
-	} else if strings.Trim(projectName, " ") == "抗双链DNA抗体" && len(collectInfo.F157) > 0 {
-		isConflict = true
-	} else if strings.Trim(projectName, " ") == "抗组蛋白" && len(collectInfo.F159) > 0 {
-		isConflict = true
-	} else if strings.Trim(projectName, " ") == "抗核糖体P蛋白" && len(collectInfo.F160) > 0 {
-		isConflict = true
-	} else if strings.Trim(projectName, " ") == "自身免疫性肝病抗体检测" && len(collectInfo.F161) > 0 {
-		isConflict = true
-	} else if strings.Trim(projectName, " ") == "抗线粒体抗体" && len(collectInfo.F163) > 0 {
-		isConflict = true
-	} else if strings.Trim(projectName, " ") == "抗肝肾微粒体" && len(collectInfo.F164) > 0 {
-		isConflict = true
-	} else if strings.Trim(projectName, " ") == "抗肝抗原" && len(collectInfo.F165) > 0 {
-		isConflict = true
-	} else if strings.Trim(projectName, " ") == "抗平滑肌抗体" && len(collectInfo.F166) > 0 {
-		isConflict = true
-	} else if strings.Trim(projectName, " ") == "抗3E（BPO）" && len(collectInfo.F167) > 0 {
-		isConflict = true
-	} else if strings.Trim(projectName, " ") == "抗Sp100" && len(collectInfo.F168) > 0 {
-		isConflict = true
-	} else if strings.Trim(projectName, " ") == "抗gp210" && len(collectInfo.F170) > 0 {
-		isConflict = true
-	} else if strings.Trim(projectName, " ") == "抗肝肾微粒体抗体" && len(collectInfo.F171) > 0 {
-		isConflict = true
-	} else if strings.Trim(projectName, " ") == "抗肝细胞溶质抗原I抗体" && len(collectInfo.F172) > 0 {
-		isConflict = true
-	} else if strings.Trim(projectName, " ") == "抗可溶性肝抗原/肝胰抗原抗体" && len(collectInfo.F173) > 0 {
-		isConflict = true
+	projectResult := dataLaboratory.ProjectResult
+	if strings.Trim(projectName, " ") == "甲胎蛋白" {
+		if len(collectInfo.F99) > 0 && projectResult != collectInfo.F99 {
+			isConflict = true
+		}
+	} else if strings.Trim(projectName, " ") == "糖链抗原CA19-9" {
+		if len(collectInfo.F100) > 0 && projectResult != collectInfo.F100 {
+			isConflict = true
+		}
+	} else if strings.Trim(projectName, " ") == "糖链抗原CA125" {
+		if len(collectInfo.F101) > 0 && projectResult != collectInfo.F101 {
+			isConflict = true
+		}
+	} else if strings.Trim(projectName, " ") == "癌胚抗原(CEA)" {
+		if len(collectInfo.F102) > 0 && projectResult != collectInfo.F102 {
+			isConflict = true
+		}
+	} else if strings.Trim(projectName, " ") == "糖类抗原CA15-3" {
+		if len(collectInfo.F103) > 0 && projectResult != collectInfo.F103 {
+			isConflict = true
+		}
+	} else if strings.Trim(projectName, " ") == "糖链抗原CA72-4" {
+		if len(collectInfo.F104) > 0 && projectResult != collectInfo.F104 {
+			isConflict = true
+		}
+	} else if strings.Trim(projectName, " ") == "抗Jo-1" {
+		if len(collectInfo.F154) > 0 && projectResult != collectInfo.F154 {
+			isConflict = true
+		}
+	} else if strings.Trim(projectName, " ") == "天门冬氨酸转氨酶(AST)" {
+		if len(collectInfo.F39) > 0 && projectResult != collectInfo.F39 {
+			isConflict = true
+		}
+	} else if strings.Trim(projectName, " ") == "线粒体型天门冬氨酸转氨酶" {
+		if len(collectInfo.F37) > 0 && projectResult != collectInfo.F37 {
+			isConflict = true
+		}
+	} else if strings.Trim(projectName, " ") == "维生素D3" {
+		if len(collectInfo.F105) > 0 && projectResult != collectInfo.F105 {
+			isConflict = true
+		}
+	} else if strings.Trim(projectName, " ") == "总三碘甲状腺原氨酸" {
+		if len(collectInfo.F112) > 0 && projectResult != collectInfo.F112 {
+			isConflict = true
+		}
+	} else if strings.Trim(projectName, " ") == "促甲状腺激素" {
+		if len(collectInfo.F114) > 0 && projectResult != collectInfo.F114 {
+			isConflict = true
+		}
+	} else if strings.Trim(projectName, " ") == "ANA（IIF）" {
+		if len(collectInfo.F162) > 0 && projectResult != collectInfo.F162 {
+			isConflict = true
+		}
+	} else if strings.Trim(projectName, " ") == "抗核抗体（定性）" {
+		if len(collectInfo.F144) > 0 && projectResult != collectInfo.F144 {
+			isConflict = true
+		}
+	} else if strings.Trim(projectName, " ") == "抗PML" {
+		if len(collectInfo.F169) > 0 && projectResult != collectInfo.F169 {
+			isConflict = true
+		}
+	} else if strings.Trim(projectName, " ") == "抗线粒体M2" {
+		if len(collectInfo.F174) > 0 && projectResult != collectInfo.F174 {
+			isConflict = true
+		}
+	} else if strings.Trim(projectName, " ") == "pANCA" {
+		if len(collectInfo.F175) > 0 && projectResult != collectInfo.F175 {
+			isConflict = true
+		}
+	} else if strings.Trim(projectName, " ") == "cANCA" {
+		if len(collectInfo.F176) > 0 && projectResult != collectInfo.F176 {
+			isConflict = true
+		}
+	} else if strings.Trim(projectName, " ") == "抗核小体" {
+		if len(collectInfo.F158) > 0 && projectResult != collectInfo.F158 {
+			isConflict = true
+		}
+	} else if strings.Trim(projectName, " ") == "抗sm抗体" {
+		if len(collectInfo.F177) > 0 && projectResult != collectInfo.F177 {
+			isConflict = true
+		}
+	} else if strings.Trim(projectName, " ") == "抗SSA" {
+		if len(collectInfo.F149) > 0 && projectResult != collectInfo.F149 {
+			isConflict = true
+		}
+	} else if strings.Trim(projectName, " ") == "抗SSB" {
+		if len(collectInfo.F151) > 0 && projectResult != collectInfo.F151 {
+			isConflict = true
+		}
+	} else if strings.Trim(projectName, " ") == "抗ScL-70" {
+		if len(collectInfo.F152) > 0 && projectResult != collectInfo.F152 {
+			isConflict = true
+		}
+	} else if strings.Trim(projectName, " ") == "抗PM-Scl" {
+		if len(collectInfo.F153) > 0 && projectResult != collectInfo.F153 {
+			isConflict = true
+		}
+	} else if strings.Trim(projectName, " ") == "抗Ro-52" {
+		if len(collectInfo.F150) > 0 && projectResult != collectInfo.F150 {
+			isConflict = true
+		}
+	} else if strings.Trim(projectName, " ") == "抗核抗体（1：10）" {
+		if len(collectInfo.F126) > 0 && projectResult != collectInfo.F126 {
+			isConflict = true
+		}
+	} else if strings.Trim(projectName, " ") == "抗核抗体（1：20）" {
+		if len(collectInfo.F127) > 0 && projectResult != collectInfo.F127 {
+			isConflict = true
+		}
+	} else if strings.Trim(projectName, " ") == "抗核抗体(1:100)" {
+		if len(collectInfo.F131) > 0 && projectResult != collectInfo.F131 {
+			isConflict = true
+		}
+	} else if strings.Trim(projectName, " ") == "抗核抗体(1:160)" {
+		if len(collectInfo.F132) > 0 && projectResult != collectInfo.F132 {
+			isConflict = true
+		}
+	} else if strings.Trim(projectName, " ") == "抗核抗体(1:320)" {
+		if len(collectInfo.F133) > 0 && projectResult != collectInfo.F133 {
+			isConflict = true
+		}
+	} else if strings.Trim(projectName, " ") == "抗核抗体(1:10000)" {
+		if len(collectInfo.F140) > 0 && projectResult != collectInfo.F140 {
+			isConflict = true
+		}
+	} else if strings.Trim(projectName, " ") == "1：100000" {
+		if len(collectInfo.F142) > 0 && projectResult != collectInfo.F142 {
+			isConflict = true
+		}
+	} else if strings.Trim(projectName, " ") == "抗核抗体(1:1000)" {
+		if len(collectInfo.F135) > 0 && projectResult != collectInfo.F135 {
+			isConflict = true
+		}
+	} else if strings.Trim(projectName, " ") == "抗核抗体(1:2560)" {
+		if len(collectInfo.F137) > 0 && projectResult != collectInfo.F137 {
+			isConflict = true
+		}
+	} else if strings.Trim(projectName, " ") == "抗核抗体(1:1280)" {
+		if len(collectInfo.F136) > 0 && projectResult != collectInfo.F136 {
+			isConflict = true
+		}
+	} else if strings.Trim(projectName, " ") == "抗核抗体(1:3200)" {
+		if len(collectInfo.F138) > 0 && projectResult != collectInfo.F138 {
+			isConflict = true
+		}
+	} else if strings.Trim(projectName, " ") == "抗nRNP/Sm" {
+		if len(collectInfo.F147) > 0 && projectResult != collectInfo.F147 {
+			isConflict = true
+		}
+	} else if strings.Trim(projectName, " ") == "抗核抗体(1:32)" {
+		if len(collectInfo.F128) > 0 && projectResult != collectInfo.F128 {
+			isConflict = true
+		}
+	} else if strings.Trim(projectName, " ") == "快速血沉试验" {
+		if len(collectInfo.F109) > 0 && projectResult != collectInfo.F109 {
+			isConflict = true
+		}
+	} else if strings.Trim(projectName, " ") == "血清免疫球蛋白M" {
+		if len(collectInfo.F82) > 0 && projectResult != collectInfo.F82 {
+			isConflict = true
+		}
+	} else if strings.Trim(projectName, " ") == "血清免疫球蛋白A" {
+		if len(collectInfo.F81) > 0 && projectResult != collectInfo.F81 {
+			isConflict = true
+		}
+	} else if strings.Trim(projectName, " ") == "血清免疫球蛋白G" {
+		if len(collectInfo.F80) > 0 && projectResult != collectInfo.F80 {
+			isConflict = true
+		}
+	} else if strings.Trim(projectName, " ") == "超敏C反应蛋白" {
+		if len(collectInfo.F88) > 0 && projectResult != collectInfo.F88 {
+			isConflict = true
+		}
+	} else if strings.Trim(projectName, " ") == "尿白细胞定量" {
+		if len(collectInfo.F121) > 0 && projectResult != collectInfo.F121 {
+			isConflict = true
+		}
+	} else if strings.Trim(projectName, " ") == "抗EBV衣壳抗体IgG" {
+		if len(collectInfo.F90) > 0 && projectResult != collectInfo.F90 {
+			isConflict = true
+		}
+	} else if strings.Trim(projectName, " ") == "抗EBV早期抗体IgG" {
+		if len(collectInfo.F92) > 0 && projectResult != collectInfo.F92 {
+			isConflict = true
+		}
+	} else if strings.Trim(projectName, " ") == "抗着丝点蛋白B" {
+		if len(collectInfo.F155) > 0 && projectResult != collectInfo.F155 {
+			isConflict = true
+		}
+	} else if strings.Trim(projectName, " ") == "1,3-β-D葡聚糖(血液)" {
+		if len(collectInfo.F107) > 0 && projectResult != collectInfo.F107 {
+			isConflict = true
+		}
+	} else if strings.Trim(projectName, " ") == "胱抑素C" {
+		if len(collectInfo.F68) > 0 && projectResult != collectInfo.F68 {
+			isConflict = true
+		}
+	} else if strings.Trim(projectName, " ") == "免疫球蛋白G亚类4" {
+		if len(collectInfo.F84) > 0 && projectResult != collectInfo.F84 {
+			isConflict = true
+		}
+	} else if strings.Trim(projectName, " ") == "免疫球蛋白G亚类3" {
+		if len(collectInfo.F85) > 0 && projectResult != collectInfo.F85 {
+			isConflict = true
+		}
+	} else if strings.Trim(projectName, " ") == "免疫球蛋白G亚类2" {
+		if len(collectInfo.F86) > 0 && projectResult != collectInfo.F86 {
+			isConflict = true
+		}
+	} else if strings.Trim(projectName, " ") == "免疫球蛋白G亚类1" {
+		if len(collectInfo.F87) > 0 && projectResult != collectInfo.F87 {
+			isConflict = true
+		}
+	} else if strings.Trim(projectName, " ") == "白细胞计数" {
+		if len(collectInfo.F27) > 0 && projectResult != collectInfo.F27 {
+			isConflict = true
+		}
+	} else if strings.Trim(projectName, " ") == "中性粒细胞绝对值" {
+		if len(collectInfo.F28) > 0 && projectResult != collectInfo.F28 {
+			isConflict = true
+		}
+	} else if strings.Trim(projectName, " ") == "淋巴细胞绝对值" {
+		if len(collectInfo.F29) > 0 && projectResult != collectInfo.F29 {
+			isConflict = true
+		}
+	} else if strings.Trim(projectName, " ") == "单核细胞绝对值" {
+		if len(collectInfo.F30) > 0 && projectResult != collectInfo.F30 {
+			isConflict = true
+		}
+	} else if strings.Trim(projectName, " ") == "红细胞计数" {
+		if len(collectInfo.F31) > 0 && projectResult != collectInfo.F31 {
+			isConflict = true
+		}
+	} else if strings.Trim(projectName, " ") == "血红蛋白" {
+		if len(collectInfo.F32) > 0 && projectResult != collectInfo.F32 {
+			isConflict = true
+		}
+	} else if strings.Trim(projectName, " ") == "血细胞比容" {
+		if len(collectInfo.F33) > 0 && projectResult != collectInfo.F33 {
+			isConflict = true
+		}
+	} else if strings.Trim(projectName, " ") == "平均红细胞体积" {
+		if len(collectInfo.F34) > 0 && projectResult != collectInfo.F34 {
+			isConflict = true
+		}
+	} else if strings.Trim(projectName, " ") == "血小板计数" {
+		if len(collectInfo.F35) > 0 && projectResult != collectInfo.F35 {
+			isConflict = true
+		}
+	} else if strings.Trim(projectName, " ") == "腺苷脱氨酶" {
+		if len(collectInfo.F36) > 0 && projectResult != collectInfo.F36 {
+			isConflict = true
+		}
+	} else if strings.Trim(projectName, " ") == "丙氨酸氨基转移酶(ALT)" {
+		if len(collectInfo.F38) > 0 && projectResult != collectInfo.F38 {
+			isConflict = true
+		}
+	} else if strings.Trim(projectName, " ") == "总蛋白" {
+		if len(collectInfo.F40) > 0 && projectResult != collectInfo.F40 {
+			isConflict = true
+		}
+	} else if strings.Trim(projectName, " ") == "球蛋白" {
+		if len(collectInfo.F41) > 0 && projectResult != collectInfo.F41 {
+			isConflict = true
+		}
+	} else if strings.Trim(projectName, " ") == "白蛋白" {
+		if len(collectInfo.F42) > 0 && projectResult != collectInfo.F42 {
+			isConflict = true
+		}
+	} else if strings.Trim(projectName, " ") == "总胆红素" {
+		if len(collectInfo.F43) > 0 && projectResult != collectInfo.F43 {
+			isConflict = true
+		}
+	} else if strings.Trim(projectName, " ") == "直接胆红素" {
+		if len(collectInfo.F44) > 0 && projectResult != collectInfo.F44 {
+			isConflict = true
+		}
+	} else if strings.Trim(projectName, " ") == "间接胆红素" {
+		if len(collectInfo.F45) > 0 && projectResult != collectInfo.F45 {
+			isConflict = true
+		}
+	} else if strings.Trim(projectName, " ") == "碱性磷酸酶" {
+		if len(collectInfo.F46) > 0 && projectResult != collectInfo.F46 {
+			isConflict = true
+		}
+	} else if strings.Trim(projectName, " ") == "γ-谷氨酰基转移酶" {
+		if len(collectInfo.F47) > 0 && projectResult != collectInfo.F47 {
+			isConflict = true
+		}
+	} else if strings.Trim(projectName, " ") == "总胆汁酸" {
+		if len(collectInfo.F48) > 0 && projectResult != collectInfo.F48 {
+			isConflict = true
+		}
+	} else if strings.Trim(projectName, " ") == "亮氨酸氨基肽酶" {
+		if len(collectInfo.F49) > 0 && projectResult != collectInfo.F49 {
+			isConflict = true
+		}
+	} else if strings.Trim(projectName, " ") == "白蛋白/球蛋白" {
+		if len(collectInfo.F50) > 0 && projectResult != collectInfo.F50 {
+			isConflict = true
+		}
+	} else if strings.Trim(projectName, " ") == "AST/ALT" {
+		if len(collectInfo.F51) > 0 && projectResult != collectInfo.F51 {
+			isConflict = true
+		}
+	} else if strings.Trim(projectName, " ") == "总胆固醇" {
+		if len(collectInfo.F52) > 0 && projectResult != collectInfo.F52 {
+			isConflict = true
+		}
+	} else if strings.Trim(projectName, " ") == "甘油三脂" {
+		if len(collectInfo.F53) > 0 && projectResult != collectInfo.F53 {
+			isConflict = true
+		}
+	} else if strings.Trim(projectName, " ") == "高密度脂蛋白胆固醇" {
+		if len(collectInfo.F54) > 0 && projectResult != collectInfo.F54 {
+			isConflict = true
+		}
+	} else if strings.Trim(projectName, " ") == "低密度脂蛋白胆固醇(LDL_C)" {
+		if len(collectInfo.F55) > 0 && projectResult != collectInfo.F55 {
+			isConflict = true
+		}
+	} else if strings.Trim(projectName, " ") == "尿素" {
+		if len(collectInfo.F56) > 0 && projectResult != collectInfo.F56 {
+			isConflict = true
+		}
+	} else if strings.Trim(projectName, " ") == "肌酐" {
+		if len(collectInfo.F57) > 0 && projectResult != collectInfo.F57 {
+			isConflict = true
+		}
+	} else if strings.Trim(projectName, " ") == "葡萄糖" {
+		if len(collectInfo.F58) > 0 && projectResult != collectInfo.F58 {
+			isConflict = true
+		}
+	} else if strings.Trim(projectName, " ") == "糖化血红蛋白" {
+		if len(collectInfo.F59) > 0 && projectResult != collectInfo.F59 {
+			isConflict = true
+		}
+	} else if strings.Trim(projectName, " ") == "尿酸" {
+		if len(collectInfo.F60) > 0 && projectResult != collectInfo.F60 {
+			isConflict = true
+		}
+	} else if strings.Trim(projectName, " ") == "载脂蛋白A1" {
+		if len(collectInfo.F61) > 0 && projectResult != collectInfo.F61 {
+			isConflict = true
+		}
+	} else if strings.Trim(projectName, " ") == "载脂蛋白B" {
+		if len(collectInfo.F62) > 0 && projectResult != collectInfo.F62 {
+			isConflict = true
+		}
+	} else if strings.Trim(projectName, " ") == "钾" {
+		if len(collectInfo.F63) > 0 && projectResult != collectInfo.F63 {
+			isConflict = true
+		}
+	} else if strings.Trim(projectName, " ") == "钠" {
+		if len(collectInfo.F64) > 0 && projectResult != collectInfo.F64 {
+			isConflict = true
+		}
+	} else if strings.Trim(projectName, " ") == "氯" {
+		if len(collectInfo.F65) > 0 && projectResult != collectInfo.F65 {
+			isConflict = true
+		}
+	} else if strings.Trim(projectName, " ") == "总钙" {
+		if len(collectInfo.F66) > 0 && projectResult != collectInfo.F66 {
+			isConflict = true
+		}
+	} else if strings.Trim(projectName, " ") == "二氧化碳" {
+		if len(collectInfo.F67) > 0 && projectResult != collectInfo.F67 {
+			isConflict = true
+		}
+	} else if strings.Trim(projectName, " ") == "无机磷" {
+		if len(collectInfo.F69) > 0 && projectResult != collectInfo.F69 {
+			isConflict = true
+		}
+	} else if strings.Trim(projectName, " ") == "肌酸激酶" {
+		if len(collectInfo.F70) > 0 && projectResult != collectInfo.F70 {
+			isConflict = true
+		}
+	} else if strings.Trim(projectName, " ") == "血清胆碱脂酶" {
+		if len(collectInfo.F71) > 0 && projectResult != collectInfo.F71 {
+			isConflict = true
+		}
+	} else if strings.Trim(projectName, " ") == "凝血酶原时间" {
+		if len(collectInfo.F72) > 0 && projectResult != collectInfo.F72 {
+			isConflict = true
+		}
+	} else if strings.Trim(projectName, " ") == "活化部分凝血活酶时间" {
+		if len(collectInfo.F73) > 0 && projectResult != collectInfo.F73 {
+			isConflict = true
+		}
+	} else if strings.Trim(projectName, " ") == "纤维蛋白原含量" {
+		if len(collectInfo.F74) > 0 && projectResult != collectInfo.F74 {
+			isConflict = true
+		}
+	} else if strings.Trim(projectName, " ") == "凝血酶时间" {
+		if len(collectInfo.F75) > 0 && projectResult != collectInfo.F75 {
+			isConflict = true
+		}
+	} else if strings.Trim(projectName, " ") == "D-二聚体" {
+		if len(collectInfo.F76) > 0 && projectResult != collectInfo.F76 {
+			isConflict = true
+		}
+	} else if strings.Trim(projectName, " ") == "纤维蛋白原降解产物(血浆)" {
+		if len(collectInfo.F77) > 0 && projectResult != collectInfo.F77 {
+			isConflict = true
+		}
+	} else if strings.Trim(projectName, " ") == "凝血酶原活动度" {
+		if len(collectInfo.F78) > 0 && projectResult != collectInfo.F78 {
+			isConflict = true
+		}
+	} else if strings.Trim(projectName, " ") == "PT国际标准化比值" {
+		if len(collectInfo.F79) > 0 && projectResult != collectInfo.F79 {
+			isConflict = true
+		}
+	} else if strings.Trim(projectName, " ") == "血清免疫球蛋白E" {
+		if len(collectInfo.F83) > 0 && projectResult != collectInfo.F83 {
+			isConflict = true
+		}
+	} else if strings.Trim(projectName, " ") == "巨细胞病毒抗体IgM" {
+		if len(collectInfo.F89) > 0 && projectResult != collectInfo.F89 {
+			isConflict = true
+		}
+	} else if strings.Trim(projectName, " ") == "抗EBV核抗体IgG" {
+		if len(collectInfo.F91) > 0 && projectResult != collectInfo.F91 {
+			isConflict = true
+		}
+	} else if strings.Trim(projectName, " ") == "抗EBV衣壳抗体IgM" {
+		if len(collectInfo.F93) > 0 && projectResult != collectInfo.F93 {
+			isConflict = true
+		}
+	} else if strings.Trim(projectName, " ") == "抗EBV壳抗体IgG亲合力" {
+		if len(collectInfo.F94) > 0 && projectResult != collectInfo.F94 {
+			isConflict = true
+		}
+	} else if strings.Trim(projectName, " ") == "EBV Zta蛋白抗体IgA" {
+		if len(collectInfo.F95) > 0 && projectResult != collectInfo.F95 {
+			isConflict = true
+		}
+	} else if strings.Trim(projectName, " ") == "抗EBV衣壳抗体IgA" {
+		if len(collectInfo.F96) > 0 && projectResult != collectInfo.F96 {
+			isConflict = true
+		}
+	} else if strings.Trim(projectName, " ") == "抗EBV核抗体IgA" {
+		if len(collectInfo.F97) > 0 && projectResult != collectInfo.F97 {
+			isConflict = true
+		}
+	} else if strings.Trim(projectName, " ") == "异常凝血酶原" {
+		if len(collectInfo.F98) > 0 && projectResult != collectInfo.F98 {
+			isConflict = true
+		}
+	} else if strings.Trim(projectName, " ") == "内毒素定量(血液)" {
+		if len(collectInfo.F106) > 0 && projectResult != collectInfo.F106 {
+			isConflict = true
+		}
+	} else if strings.Trim(projectName, " ") == "血浆氨" {
+		if len(collectInfo.F108) > 0 && projectResult != collectInfo.F108 {
+			isConflict = true
+		}
+	} else if strings.Trim(projectName, " ") == "游离三碘甲状腺原氨酸" {
+		if len(collectInfo.F110) > 0 && projectResult != collectInfo.F110 {
+			isConflict = true
+		}
+	} else if strings.Trim(projectName, " ") == "游离甲状腺素" {
+		if len(collectInfo.F111) > 0 && projectResult != collectInfo.F111 {
+			isConflict = true
+		}
+	} else if strings.Trim(projectName, " ") == "总甲状腺素" {
+		if len(collectInfo.F113) > 0 && projectResult != collectInfo.F113 {
+			isConflict = true
+		}
+	} else if strings.Trim(projectName, " ") == "尿白细胞定性" {
+		if len(collectInfo.F115) > 0 && projectResult != collectInfo.F115 {
+			isConflict = true
+		}
+	} else if strings.Trim(projectName, " ") == "尿蛋白定性" {
+		if len(collectInfo.F116) > 0 && projectResult != collectInfo.F116 {
+			isConflict = true
+		}
+	} else if strings.Trim(projectName, " ") == "尿胆原定性" {
+		if len(collectInfo.F117) > 0 && projectResult != collectInfo.F117 {
+			isConflict = true
+		}
+	} else if strings.Trim(projectName, " ") == "尿胆红素定性" {
+		if len(collectInfo.F118) > 0 && projectResult != collectInfo.F118 {
+			isConflict = true
+		}
+	} else if strings.Trim(projectName, " ") == "尿红细胞定性" {
+		if len(collectInfo.F119) > 0 && projectResult != collectInfo.F119 {
+			isConflict = true
+		}
+	} else if strings.Trim(projectName, " ") == "尿红细胞定量" {
+		if len(collectInfo.F120) > 0 && projectResult != collectInfo.F120 {
+			isConflict = true
+		}
+	} else if strings.Trim(projectName, " ") == "尿细菌定量" {
+		if len(collectInfo.F122) > 0 && projectResult != collectInfo.F122 {
+			isConflict = true
+		}
+	} else if strings.Trim(projectName, " ") == "抗U1-nRNP抗体" {
+		if len(collectInfo.F145) > 0 && projectResult != collectInfo.F145 {
+			isConflict = true
+		}
+	} else if strings.Trim(projectName, " ") == "抗U1-snRNP抗体" {
+		if len(collectInfo.F146) > 0 && projectResult != collectInfo.F146 {
+			isConflict = true
+		}
+	} else if strings.Trim(projectName, " ") == "抗增殖细胞核抗原" {
+		if len(collectInfo.F156) > 0 && projectResult != collectInfo.F156 {
+			isConflict = true
+		}
+	} else if strings.Trim(projectName, " ") == "抗双链DNA抗体" {
+		if len(collectInfo.F157) > 0 && projectResult != collectInfo.F157 {
+			isConflict = true
+		}
+	} else if strings.Trim(projectName, " ") == "抗组蛋白" {
+		if len(collectInfo.F159) > 0 && projectResult != collectInfo.F159 {
+			isConflict = true
+		}
+	} else if strings.Trim(projectName, " ") == "抗核糖体P蛋白" {
+		if len(collectInfo.F160) > 0 && projectResult != collectInfo.F160 {
+			isConflict = true
+		}
+	} else if strings.Trim(projectName, " ") == "自身免疫性肝病抗体检测" {
+		if len(collectInfo.F161) > 0 && projectResult != collectInfo.F161 {
+			isConflict = true
+		}
+	} else if strings.Trim(projectName, " ") == "抗线粒体抗体" {
+		if len(collectInfo.F163) > 0 && projectResult != collectInfo.F163 {
+			isConflict = true
+		}
+	} else if strings.Trim(projectName, " ") == "抗肝肾微粒体" {
+		if len(collectInfo.F164) > 0 && projectResult != collectInfo.F164 {
+			isConflict = true
+		}
+	} else if strings.Trim(projectName, " ") == "抗肝抗原" {
+		if len(collectInfo.F165) > 0 && projectResult != collectInfo.F165 {
+			isConflict = true
+		}
+	} else if strings.Trim(projectName, " ") == "抗平滑肌抗体" {
+		if len(collectInfo.F166) > 0 && projectResult != collectInfo.F166 {
+			isConflict = true
+		}
+	} else if strings.Trim(projectName, " ") == "抗3E（BPO）" {
+		if len(collectInfo.F167) > 0 && projectResult != collectInfo.F167 {
+			isConflict = true
+		}
+	} else if strings.Trim(projectName, " ") == "抗Sp100" {
+		if len(collectInfo.F168) > 0 && projectResult != collectInfo.F168 {
+			isConflict = true
+		}
+	} else if strings.Trim(projectName, " ") == "抗gp210" {
+		if len(collectInfo.F170) > 0 && projectResult != collectInfo.F170 {
+			isConflict = true
+		}
+	} else if strings.Trim(projectName, " ") == "抗肝肾微粒体抗体" {
+		if len(collectInfo.F171) > 0 && projectResult != collectInfo.F171 {
+			isConflict = true
+		}
+	} else if strings.Trim(projectName, " ") == "抗肝细胞溶质抗原I抗体" {
+		if len(collectInfo.F172) > 0 && projectResult != collectInfo.F172 {
+			isConflict = true
+		}
+	} else if strings.Trim(projectName, " ") == "抗可溶性肝抗原/肝胰抗原抗体" {
+		if len(collectInfo.F173) > 0 && projectResult != collectInfo.F173 {
+			isConflict = true
+		}
 	}
 	return isConflict
 }

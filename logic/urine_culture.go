@@ -16,6 +16,7 @@ type UrineCultureService struct {
 	mergeAdd      int
 	mergeUpdate   int
 	mergeConflict int
+	mergeSame     int
 	mergeErr      int
 	db            *gorm.DB
 }
@@ -252,8 +253,8 @@ func (m *UrineCultureService) Merge() (err error) {
 		_ = m.mateAndWriteCollect(dataToMerge)
 	}
 	if total > 0 {
-		fmt.Printf("尿液表和入主表完成，匹配不到新增【%d】，匹配成功合并【%d】，匹配冲突新增【%d】，系统异常【%d】\n",
-			m.mergeAdd, m.mergeUpdate, m.mergeConflict, m.mergeErr)
+		fmt.Printf("尿液表和入主表完成，匹配不到新增【%d】，匹配成功合并【%d】，匹配冲突新增【%d】，完全一致无需合并【%d】，系统异常【%d】\n",
+			m.mergeAdd, m.mergeUpdate, m.mergeConflict, m.mergeSame, m.mergeErr)
 	} else {
 		fmt.Printf("本次无尿培养数据需要合入\n")
 	}
@@ -298,7 +299,18 @@ func (m *UrineCultureService) mateAndWriteCollect(dataToMerge *DataToMerge) erro
 	}
 	// 匹配冲突则继续 直到最后一条总表记录还冲突的话新增数据
 	for i, collectData := range collectList {
-		if len(collectData.F123) > 0 || len(collectData.F124) > 0 || len(collectData.F125) > 0 {
+		if collectData.F123 == dataToMerge.first &&
+			collectData.F124 == dataToMerge.second &&
+			collectData.F125 == dataToMerge.third {
+			fmt.Printf("尿培养匹配到到总表数据共【%d】条，第【%d】条已存在监测记录，但内容完全一致无需合并！！姓名【%s】,"+
+				"就诊卡号[%s] 总表时间【%d】,尿培养表时间【%d】\n", len(collectList), i+1, collectData.Name,
+				collectData.VisitCardID, collectData.VisitTime, dataToMerge.beginTime)
+			m.mergeSame++
+			return nil
+		}
+		if (len(collectData.F123) > 0 && collectData.F123 != dataToMerge.first) ||
+			(len(collectData.F124) > 0 && collectData.F124 != dataToMerge.second) ||
+			(len(collectData.F125) > 0 && collectData.F125 != dataToMerge.third) {
 			fmt.Printf("尿培养匹配到到总表数据共【%d】条，第【%d】条已存在监测记录，继续匹配！！姓名【%s】,"+
 				"就诊卡号[%s] 总表时间【%d】,尿培养表时间【%d】\n", len(collectList), i+1, collectData.Name,
 				collectData.VisitCardID, collectData.VisitTime, dataToMerge.beginTime)
