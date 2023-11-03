@@ -850,7 +850,48 @@ func (m *LaboratoryService) checkMergerConflict(collectInfo *tables.TCollect, da
 		if len(collectInfo.F173) > 0 && projectResult != collectInfo.F173 {
 			isConflict = true
 		}
+	} else if strings.Trim(projectName, " ") == "乙肝E抗体定量" {
+		if len(collectInfo.F236) > 0 && projectResult != collectInfo.F236 {
+			isConflict = true
+		}
+	} else if strings.Trim(projectName, " ") == "乙肝E抗原定量" {
+		if len(collectInfo.F237) > 0 && projectResult != collectInfo.F237 {
+			isConflict = true
+		}
+	} else if strings.Trim(projectName, " ") == "乙肝表面抗体定量" {
+		if len(collectInfo.F238) > 0 && projectResult != collectInfo.F238 {
+			isConflict = true
+		}
+	} else if strings.Trim(projectName, " ") == "乙肝表面抗原定量" {
+		if len(collectInfo.F239) > 0 && projectResult != collectInfo.F239 {
+			isConflict = true
+		}
+	} else if strings.Trim(projectName, " ") == "乙肝核心抗体定量" {
+		if len(collectInfo.F240) > 0 && projectResult != collectInfo.F240 {
+			isConflict = true
+		}
+	} else if strings.Trim(projectName, " ") == "高敏乙肝DNA定量" {
+		if len(collectInfo.F241) > 0 && projectResult != collectInfo.F241 {
+			isConflict = true
+		}
+	} else if strings.Trim(projectName, " ") == "乙肝病毒定量" {
+		if len(collectInfo.F242) > 0 && projectResult != collectInfo.F242 {
+			isConflict = true
+		}
+	} else if strings.Trim(projectName, " ") == "高敏丙肝RNA定量" {
+		if len(collectInfo.F243) > 0 && projectResult != collectInfo.F243 {
+			isConflict = true
+		}
+	} else if strings.Trim(projectName, " ") == "丙肝病毒定量" {
+		if len(collectInfo.F244) > 0 && projectResult != collectInfo.F244 {
+			isConflict = true
+		}
+	} else if strings.Trim(projectName, " ") == "丙肝抗体定性" {
+		if len(collectInfo.F245) > 0 && projectResult != collectInfo.F245 {
+			isConflict = true
+		}
 	}
+
 	return isConflict
 }
 
@@ -1152,6 +1193,26 @@ func (m *LaboratoryService) getMergerCollectInfo(collectInfo *tables.TCollect, d
 		mergeCollectInfo.F172 = dataLaboratory.ProjectResult
 	} else if projectName == "抗可溶性肝抗原/肝胰抗原抗体" {
 		mergeCollectInfo.F173 = dataLaboratory.ProjectResult
+	} else if projectName == "乙肝E抗体定量" {
+		mergeCollectInfo.F236 = dataLaboratory.ProjectResult
+	} else if projectName == "乙肝E抗原定量" {
+		mergeCollectInfo.F237 = dataLaboratory.ProjectResult
+	} else if projectName == "乙肝表面抗体定量" {
+		mergeCollectInfo.F238 = dataLaboratory.ProjectResult
+	} else if projectName == "乙肝表面抗原定量" {
+		mergeCollectInfo.F239 = dataLaboratory.ProjectResult
+	} else if projectName == "乙肝核心抗体定量" {
+		mergeCollectInfo.F240 = dataLaboratory.ProjectResult
+	} else if projectName == "高敏乙肝DNA定量" {
+		mergeCollectInfo.F241 = dataLaboratory.ProjectResult
+	} else if projectName == "乙肝病毒定量" {
+		mergeCollectInfo.F242 = dataLaboratory.ProjectResult
+	} else if projectName == "高敏丙肝RNA定量" {
+		mergeCollectInfo.F243 = dataLaboratory.ProjectResult
+	} else if projectName == "丙肝病毒定量" {
+		mergeCollectInfo.F244 = dataLaboratory.ProjectResult
+	} else if projectName == "丙肝抗体定性" {
+		mergeCollectInfo.F245 = dataLaboratory.ProjectResult
 	} else {
 		return nil
 	}

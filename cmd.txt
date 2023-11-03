@@ -3,7 +3,7 @@ select group_concat(COLUMN_NAME SEPARATOR ",") from information_schema.COLUMNS w
 
 ./test test 1 1 "总表测试.xlsx" 2 "检验血1501-2000.xlsx" 3 "尿液培养3次，1501-2000.xlsx" 4 "touch测试.xlsx"
 ./test test 1 1 "总表测试.xlsx" 2 "检验血test.xlsx" 3 "尿液培养3次，1501-2000.xlsx" 4 "touch测试.xlsx"
-./test test 1 2 "总表.xlsx" 4 "消化科.xlsx"
+./test test 1 1 "乙肝及其他总表.xlsx" 2 "乙肝test.xlsx"
 
 GOOS=windows GOARCH=amd64 go build -o mergeData.exe main.go
 https://blog.csdn.net/addtyp/article/details/131831782

@@ -709,6 +709,46 @@ func addFileRow(dataInfo *tables.TCollect, file *xlsx.File, visitTime string) er
 	setCellValue(cell, dataInfo.F225)
 	cell = row.AddCell()
 	setCellValue(cell, dataInfo.F226)
+	cell = row.AddCell()
+	setCellValue(cell, dataInfo.F227)
+	cell = row.AddCell()
+	setCellValue(cell, dataInfo.F228)
+	cell = row.AddCell()
+	setCellValue(cell, dataInfo.F229)
+	cell = row.AddCell()
+	setCellValue(cell, dataInfo.F230)
+	cell = row.AddCell()
+	setCellValue(cell, dataInfo.F231)
+	cell = row.AddCell()
+	setCellValue(cell, dataInfo.F232)
+	cell = row.AddCell()
+	setCellValue(cell, dataInfo.F233)
+	cell = row.AddCell()
+	setCellValue(cell, dataInfo.F234)
+	cell = row.AddCell()
+	setCellValue(cell, dataInfo.F235)
+	cell = row.AddCell()
+	setCellValue(cell, dataInfo.F236)
+	cell = row.AddCell()
+	setCellValue(cell, dataInfo.F237)
+	cell = row.AddCell()
+	setCellValue(cell, dataInfo.F238)
+	cell = row.AddCell()
+	setCellValue(cell, dataInfo.F239)
+	cell = row.AddCell()
+	setCellValue(cell, dataInfo.F240)
+	cell = row.AddCell()
+	setCellValue(cell, dataInfo.F241)
+	cell = row.AddCell()
+	setCellValue(cell, dataInfo.F242)
+	cell = row.AddCell()
+	setCellValue(cell, dataInfo.F243)
+	cell = row.AddCell()
+	setCellValue(cell, dataInfo.F244)
+	cell = row.AddCell()
+	setCellValue(cell, dataInfo.F245)
+	cell = row.AddCell()
+	setCellValue(cell, dataInfo.F246)
 	return nil
 }
 
@@ -1383,6 +1423,66 @@ func makeFiledFromCell(cells []*xlsx.Cell) (*tables.TCollect, error) {
 	}
 	if len(cells) >= 226 {
 		collectInfo.F226 = cells[225].Value
+	}
+	if len(cells) >= 227 {
+		collectInfo.F227 = cells[226].Value
+	}
+	if len(cells) >= 228 {
+		collectInfo.F228 = cells[227].Value
+	}
+	if len(cells) >= 229 {
+		collectInfo.F229 = cells[228].Value
+	}
+	if len(cells) >= 230 {
+		collectInfo.F230 = cells[229].Value
+	}
+	if len(cells) >= 231 {
+		collectInfo.F231 = cells[230].Value
+	}
+	if len(cells) >= 232 {
+		collectInfo.F232 = cells[231].Value
+	}
+	if len(cells) >= 233 {
+		collectInfo.F233 = cells[232].Value
+	}
+	if len(cells) >= 234 {
+		collectInfo.F234 = cells[233].Value
+	}
+	if len(cells) >= 235 {
+		collectInfo.F235 = cells[234].Value
+	}
+	if len(cells) >= 236 {
+		collectInfo.F236 = cells[235].Value
+	}
+	if len(cells) >= 237 {
+		collectInfo.F237 = cells[236].Value
+	}
+	if len(cells) >= 238 {
+		collectInfo.F238 = cells[237].Value
+	}
+	if len(cells) >= 239 {
+		collectInfo.F239 = cells[238].Value
+	}
+	if len(cells) >= 240 {
+		collectInfo.F240 = cells[239].Value
+	}
+	if len(cells) >= 241 {
+		collectInfo.F241 = cells[240].Value
+	}
+	if len(cells) >= 242 {
+		collectInfo.F242 = cells[241].Value
+	}
+	if len(cells) >= 243 {
+		collectInfo.F243 = cells[242].Value
+	}
+	if len(cells) >= 244 {
+		collectInfo.F244 = cells[243].Value
+	}
+	if len(cells) >= 245 {
+		collectInfo.F245 = cells[244].Value
+	}
+	if len(cells) >= 246 {
+		collectInfo.F246 = cells[245].Value
 	}
 	visitTimeInt, err := strconv.Atoi(strings.Trim(cells[3].Value, " "))
 	if err != nil {
