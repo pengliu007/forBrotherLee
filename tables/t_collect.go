@@ -19,7 +19,8 @@ const (
 		"f_169,f_170,f_171,f_172,f_173,f_174,f_175,f_176,f_177,f_178,f_179,f_180,f_181,f_182,f_183,f_184,f_185,f_186," +
 		"f_187,f_188,f_189,f_190,f_191,f_192,f_193,f_194,f_195,f_196,f_197,f_198,f_199,f_200,f_201,f_202,f_203," +
 		"f_204,f_205,f_206,f_207,f_208,f_209,f_210,f_211,f_212,f_213,f_214,f_215,f_216,f_217,f_218,f_219,f_220," +
-		"f_221,f_222,f_223,f_224,createTime,updateTime "
+		"f_221,f_222,f_223,f_224,f_225,f_226,f_227,f_228,f_229,f_230,f_231,f_232,f_233,f_234,f_235,f_236," +
+		"f_237,f_238,f_239,f_240,f_241,f_242,f_243,f_244,f_245,f_246,createTime,updateTime "
 )
 
 // 总表
@@ -251,6 +252,26 @@ type TCollect struct {
 	F224        string `json:"f_224" gorm:"column:f_224"`             // 心得安/普萘洛尔（曲张，预防出血）
 	F225        string `json:"f_225" gorm:"column:f_225"`             // 卡维地洛（曲张，预防出血）
 	F226        string `json:"f_226" gorm:"column:f_226"`             // 其他用药
+	F227        string `json:"f_227" gorm:"column:f_227"`             // 抗病毒药物
+	F228        string `json:"f_228" gorm:"column:f_228"`             // 干扰素
+	F229        string `json:"f_229" gorm:"column:f_229"`             // 利尿
+	F230        string `json:"f_230" gorm:"column:f_230"`             // 乙肝E抗体定性
+	F231        string `json:"f_231" gorm:"column:f_231"`             // 乙肝E抗原定性
+	F232        string `json:"f_232" gorm:"column:f_232"`             // 乙肝表面抗体定性
+	F233        string `json:"f_233" gorm:"column:f_233"`             // 乙肝表面抗原定性
+	F234        string `json:"f_234" gorm:"column:f_234"`             // 乙肝核心抗体定性
+	F235        string `json:"f_235" gorm:"column:f_235"`             // 乙肝前S1抗原定性
+	F236        string `json:"f_236" gorm:"column:f_236"`             // 乙肝E抗体定量
+	F237        string `json:"f_237" gorm:"column:f_237"`             // 乙肝E抗原定量
+	F238        string `json:"f_238" gorm:"column:f_238"`             // 乙肝表面抗体定量
+	F239        string `json:"f_239" gorm:"column:f_239"`             // 乙肝表面抗原定量
+	F240        string `json:"f_240" gorm:"column:f_240"`             // 乙肝核心抗体定量
+	F241        string `json:"f_241" gorm:"column:f_241"`             // 高敏乙肝DNA定量
+	F242        string `json:"f_242" gorm:"column:f_242"`             // 乙肝病毒定量
+	F243        string `json:"f_243" gorm:"column:f_243"`             // 高敏丙肝RNA定量
+	F244        string `json:"f_244" gorm:"column:f_244"`             // 丙肝病毒定量
+	F245        string `json:"f_245" gorm:"column:f_245"`             // 丙肝抗体定性
+	F246        string `json:"f_246" gorm:"column:f_246"`             // 丙肝病毒基因分型
 	CreateTime  string `json:"createTime" gorm:"column:createTime"`   // 记录创建时间
 	UpdateTime  string `json:"updateTime" gorm:"column:updateTime"`   // 记录最后更新时间
 }
