@@ -850,6 +850,30 @@ func (m *LaboratoryService) checkMergerConflict(collectInfo *tables.TCollect, da
 		if len(collectInfo.F173) > 0 && projectResult != collectInfo.F173 {
 			isConflict = true
 		}
+	} else if strings.Trim(projectName, " ") == "乙肝E抗体定性" {
+		if len(collectInfo.F230) > 0 && projectResult != collectInfo.F230 {
+			isConflict = true
+		}
+	} else if strings.Trim(projectName, " ") == "乙肝E抗原定性" {
+		if len(collectInfo.F231) > 0 && projectResult != collectInfo.F231 {
+			isConflict = true
+		}
+	} else if strings.Trim(projectName, " ") == "乙肝表面抗体定性" {
+		if len(collectInfo.F232) > 0 && projectResult != collectInfo.F232 {
+			isConflict = true
+		}
+	} else if strings.Trim(projectName, " ") == "乙肝表面抗原定性" {
+		if len(collectInfo.F233) > 0 && projectResult != collectInfo.F233 {
+			isConflict = true
+		}
+	} else if strings.Trim(projectName, " ") == "乙肝核心抗体定性" {
+		if len(collectInfo.F234) > 0 && projectResult != collectInfo.F234 {
+			isConflict = true
+		}
+	} else if strings.Trim(projectName, " ") == "乙肝前S1抗原定性" {
+		if len(collectInfo.F235) > 0 && projectResult != collectInfo.F235 {
+			isConflict = true
+		}
 	} else if strings.Trim(projectName, " ") == "乙肝E抗体定量" {
 		if len(collectInfo.F236) > 0 && projectResult != collectInfo.F236 {
 			isConflict = true
@@ -1193,6 +1217,18 @@ func (m *LaboratoryService) getMergerCollectInfo(collectInfo *tables.TCollect, d
 		mergeCollectInfo.F172 = dataLaboratory.ProjectResult
 	} else if projectName == "抗可溶性肝抗原/肝胰抗原抗体" {
 		mergeCollectInfo.F173 = dataLaboratory.ProjectResult
+	} else if projectName == "乙肝E抗体定性" {
+		mergeCollectInfo.F230 = dataLaboratory.ProjectResult
+	} else if projectName == "乙肝E抗原定性" {
+		mergeCollectInfo.F231 = dataLaboratory.ProjectResult
+	} else if projectName == "乙肝表面抗体定性" {
+		mergeCollectInfo.F232 = dataLaboratory.ProjectResult
+	} else if projectName == "乙肝表面抗原定性" {
+		mergeCollectInfo.F233 = dataLaboratory.ProjectResult
+	} else if projectName == "乙肝核心抗体定性" {
+		mergeCollectInfo.F234 = dataLaboratory.ProjectResult
+	} else if projectName == "乙肝前S1抗原定性" {
+		mergeCollectInfo.F235 = dataLaboratory.ProjectResult
 	} else if projectName == "乙肝E抗体定量" {
 		mergeCollectInfo.F236 = dataLaboratory.ProjectResult
 	} else if projectName == "乙肝E抗原定量" {
