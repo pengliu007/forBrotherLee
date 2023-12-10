@@ -263,8 +263,9 @@ func (m *UrineCultureService) Merge() (err error) {
 }
 
 func (m *UrineCultureService) mateAndWriteCollect(dataToMerge *DataToMerge) error {
+	// 查所有的 按old-new找合适的合并
 	collectList, err := GetCollectList(m.db, dataToMerge.name, dataToMerge.visitCardID,
-		dataToMerge.beginTime-30, dataToMerge.beginTime, "asc")
+		dataToMerge.beginTime-30, dataToMerge.beginTime, "asc", "")
 	if err != nil {
 		m.mergeErr++
 		return err
@@ -355,6 +356,7 @@ func (m *UrineCultureService) mateAndWriteCollect(dataToMerge *DataToMerge) erro
 		F8:          dataToMerge.age,
 		F6:          dataToMerge.sex,
 		F13:         dataToMerge.diagnosis,
+		IsConflict:  1,
 		//CreateTime:  time.Now().Format("2006-01-02 15:04:05"),
 		//UpdateTime:  time.Now().Format("2006-01-02 15:04:05"),
 	}

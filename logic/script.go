@@ -19,6 +19,7 @@ type ScriptService struct {
 	liverStiffnessService *LiverStiffnessService // 消化
 	laboratoryService     *LaboratoryService     // 检验科
 	urineCultureService   *UrineCultureService   // 尿培养
+	pathologyService      *PathologyService      // 病理
 }
 
 func NewScriptService() *ScriptService {
@@ -29,6 +30,7 @@ func NewScriptService() *ScriptService {
 		liverStiffnessService: NewLiverStiffnessService(),
 		laboratoryService:     NewLaboratoryService(),
 		urineCultureService:   NewUrineCultureService(),
+		pathologyService:      NewPathologyService(),
 	}
 }
 
@@ -56,6 +58,13 @@ func (s *ScriptService) RunTask(args []string) error {
 		fmt.Printf("填充尿培养数据到总表异常，err：%s\n", err.Error())
 		return err
 	}
+	// 填充病理数据到总表
+	err = s.pathologyService.Merge()
+	if err != nil {
+		fmt.Printf("填充病理数据到总表异常，err：%s\n", err.Error())
+		return err
+	}
+
 	// 填充消化数据到总表 500touch 要最后
 	err = s.liverStiffnessService.Merge()
 	if err != nil {
@@ -93,6 +102,11 @@ func (s *ScriptService) InitDb() error {
 	if err != nil {
 		return err
 	}
+
+	err = s.pathologyService.InitDb()
+	if err != nil {
+		return err
+	}
 	return nil
 
 }
@@ -107,7 +121,7 @@ func (s *ScriptService) DealInput() (err error) {
 			break
 		}
 		inputPrompt := "请输入要导入的文件类型并按回车结束(请务必确保用户信息，总表录入，其他检查表可按需录入!)" +
-			"【1：总表；2：检验科表；3：尿培养表；4：消化科肝硬度touch表；；0：结束所有输入启动合成任务】\n"
+			"【1：总表；2：检验科表；3：尿培养表；4：消化科肝硬度touch表；5：病理表；0：结束所有输入启动合成任务】\n"
 
 		fileType := getStdinInput(inputPrompt)
 		if fileType == "" {
@@ -186,6 +200,12 @@ func (s *ScriptService) loadFile(fileType string, name string) (err error) {
 		err = s.liverStiffnessService.LoadFile(name)
 		if err != nil {
 			fmt.Printf("消化肝硬度touch500加载失败,err:%s", err.Error())
+			return err
+		}
+	} else if fileType == "5" {
+		err = s.pathologyService.LoadFile(name)
+		if err != nil {
+			fmt.Printf("病理文件加载失败,err:%s", err.Error())
 			return err
 		}
 	} else {

@@ -1,4 +1,8 @@
 .idea
 bin
+conf
 .DS_Store
-
+*.xlsx
+mergeData.exe
+mergeData.exe.zip
+test

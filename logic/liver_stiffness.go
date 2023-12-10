@@ -169,9 +169,9 @@ func (m *LiverStiffnessService) Merge() (err error) {
 }
 
 func (m *LiverStiffnessService) mateAndWriteCollect(dataLiverStiffness *tables.TLiverStiffness) (err error) {
-	// 匹配多条改为只匹配最近一条 所以两者排序都换了方向
+	// 匹配多条改为只匹配最近一条 所以两者排序都换了方向 只找非冲突添加的记录进行合并或覆盖
 	collectList, err := GetCollectList(m.db, dataLiverStiffness.Name, dataLiverStiffness.VisitCardID,
-		dataLiverStiffness.VisitTime-21, dataLiverStiffness.VisitTime, "desc")
+		dataLiverStiffness.VisitTime-21, dataLiverStiffness.VisitTime, "desc", "0")
 	if err != nil {
 		m.mergeErr++
 		return err

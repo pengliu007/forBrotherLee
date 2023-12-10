@@ -20,8 +20,6 @@ type LaboratoryService struct {
 	mergeSuc            int
 	mergeConflictAdd    int
 	mergeConflictUpdate int
-	lastMergeSampleNo   string
-	lastMergeSampleTime int
 	db                  *gorm.DB
 }
 
@@ -183,9 +181,9 @@ func (m *LaboratoryService) mateAndWriteCollect(dataLaboratory *tables.TLaborato
 			dataLaboratory.VisitCardID, dataLaboratory.ProjectName)
 		return errors.New("检验项目映射主表找不到对应列异常 ")
 	}
-	// 取最近的一次 所以desc
+	// 取最近的一次 所以desc [改为取所有满足的 时间从old-new匹配 所以改为asc]
 	collectList, err := GetCollectList(m.db, dataLaboratory.Name, dataLaboratory.VisitCardID,
-		dataLaboratory.SampleNoTime-4, dataLaboratory.SampleNoTime, "desc")
+		dataLaboratory.SampleNoTime-4, dataLaboratory.SampleNoTime, "asc", "")
 	if err != nil {
 		m.mergeErr++
 		return err
@@ -209,57 +207,11 @@ func (m *LaboratoryService) mateAndWriteCollect(dataLaboratory *tables.TLaborato
 			dataLaboratory.VisitCardID)
 		return nil
 	}
-	// 这样丢弃不行，一次检查可能多管血 对应多个标本
-	//if dataLaboratory.SampleNo != m.lastMergeSampleNo && dataLaboratory.SampleNoTime-m.lastMergeSampleTime < 4 {
-	//	// 判断上次和入记录时间，4天内的检验丢弃只和入第一次
-	//	fmt.Printf("4天内检验数据丢弃！！姓名【%s】,就诊卡号[%s]，标本号[%s],标本时间[%d],\n", dataLaboratory.Name,
-	//		dataLaboratory.VisitCardID, dataLaboratory.SampleNo, dataLaboratory.SampleNoTime)
-	//	return nil
-	//}
-	// 检查是否冲突，是的话判断是否同一天检查，若是同一天检查的冲突则覆盖，否则新增。无冲突直接合并
-	m.lastMergeSampleTime = dataLaboratory.SampleNoTime
-	m.lastMergeSampleNo = dataLaboratory.SampleNo
-	// 判断是否冲突  冲突新增，无冲突则合并
-	isConflict := m.checkMergerConflict(collectList[0], dataLaboratory)
-	if !isConflict {
-		collectInfo := m.getMergerCollectInfo(collectList[0], dataLaboratory)
-		if collectInfo == nil {
-			fmt.Printf("检验数据匹配不到映射表，过滤.姓名【%s】,就诊卡号[%s],项目【%s】\n", dataLaboratory.Name,
-				dataLaboratory.VisitCardID, dataLaboratory.ProjectName)
-			return nil
-		}
-		err = UpdateCollect(m.db, collectInfo)
-		if err != nil {
-			m.mergeErr++
-			fmt.Printf("检验数据合并汇总数据异常！！姓名【%s】,就诊卡号[%s]err：%s\n", dataLaboratory.Name,
-				dataLaboratory.VisitCardID, err.Error())
-			return err
-		}
-		m.mergeSuc++
-		fmt.Printf("检验数据正常合入汇总数据成功！！姓名【%s】,就诊卡号[%s]\n", dataLaboratory.Name,
-			dataLaboratory.VisitCardID)
-	} else {
-		if collectList[0].VisitTime != dataLaboratory.SampleNoTime {
-			fmt.Printf("检验数据合并汇总数据冲突,时间不同新增！！姓名【%s】,就诊卡号[%s]\n", dataLaboratory.Name,
-				dataLaboratory.VisitCardID)
-			collectInfo := m.getMergerCollectInfo(nil, dataLaboratory)
-			if collectInfo == nil {
-				fmt.Printf("检验数据匹配不到映射表，过滤.姓名【%s】,就诊卡号[%s],项目【%s】\n", dataLaboratory.Name,
-					dataLaboratory.VisitCardID, dataLaboratory.ProjectName)
-				return nil
-			}
-			err = AddCollect(m.db, collectInfo)
-			if err != nil {
-				m.mergeErr++
-				fmt.Printf("检验数据合并汇总数据冲突新增异常！！姓名【%s】,就诊卡号[%s]err：%s\n", dataLaboratory.Name,
-					dataLaboratory.VisitCardID, err.Error())
-				return err
-			}
-			m.mergeConflictAdd++
-		} else {
-			fmt.Printf("检验数据合并汇总数据冲突,时间相同覆盖！！姓名【%s】,就诊卡号[%s]\n", dataLaboratory.Name,
-				dataLaboratory.VisitCardID)
-			collectInfo := m.getMergerCollectInfo(collectList[0], dataLaboratory)
+	for _, collectData := range collectList {
+		// 判断是否冲突  冲突新增，无冲突则合并
+		isConflict := m.checkMergerConflict(collectData, dataLaboratory)
+		if !isConflict {
+			collectInfo := m.getMergerCollectInfo(collectData, dataLaboratory)
 			if collectInfo == nil {
 				fmt.Printf("检验数据匹配不到映射表，过滤.姓名【%s】,就诊卡号[%s],项目【%s】\n", dataLaboratory.Name,
 					dataLaboratory.VisitCardID, dataLaboratory.ProjectName)
@@ -268,17 +220,73 @@ func (m *LaboratoryService) mateAndWriteCollect(dataLaboratory *tables.TLaborato
 			err = UpdateCollect(m.db, collectInfo)
 			if err != nil {
 				m.mergeErr++
-				fmt.Printf("检验数据合并汇总数据冲突覆盖异常！！姓名【%s】,就诊卡号[%s]err：%s\n", dataLaboratory.Name,
+				fmt.Printf("检验数据合并汇总数据异常！！姓名【%s】,就诊卡号[%s]err：%s\n", dataLaboratory.Name,
 					dataLaboratory.VisitCardID, err.Error())
 				return err
 			}
-			m.mergeConflictUpdate++
+			m.mergeSuc++
+			fmt.Printf("检验数据正常合入汇总数据成功！！姓名【%s】,就诊卡号[%s]\n", dataLaboratory.Name,
+				dataLaboratory.VisitCardID)
+			return nil
+		} else {
+			if collectData.VisitTime != dataLaboratory.SampleNoTime {
+				fmt.Printf("检验数据合并汇总数据冲突,时间不同 继续匹配！！姓名【%s】,就诊卡号[%s]\n", dataLaboratory.Name,
+					dataLaboratory.VisitCardID)
+				//collectInfo := m.getMergerCollectInfo(nil, dataLaboratory)
+				//if collectInfo == nil {
+				//	fmt.Printf("检验数据匹配不到映射表，过滤.姓名【%s】,就诊卡号[%s],项目【%s】\n", dataLaboratory.Name,
+				//		dataLaboratory.VisitCardID, dataLaboratory.ProjectName)
+				//	return nil
+				//}
+				//err = AddCollect(m.db, collectInfo)
+				//if err != nil {
+				//	m.mergeErr++
+				//	fmt.Printf("检验数据合并汇总数据冲突新增异常！！姓名【%s】,就诊卡号[%s]err：%s\n", dataLaboratory.Name,
+				//		dataLaboratory.VisitCardID, err.Error())
+				//	return err
+				//}
+				//m.mergeConflictAdd++
+				continue
+			} else {
+				fmt.Printf("检验数据合并汇总数据冲突,时间相同覆盖！！姓名【%s】,就诊卡号[%s]\n", dataLaboratory.Name,
+					dataLaboratory.VisitCardID)
+				collectInfo := m.getMergerCollectInfo(collectData, dataLaboratory)
+				if collectInfo == nil {
+					fmt.Printf("检验数据匹配不到映射表，过滤.姓名【%s】,就诊卡号[%s],项目【%s】\n", dataLaboratory.Name,
+						dataLaboratory.VisitCardID, dataLaboratory.ProjectName)
+					return nil
+				}
+				err = UpdateCollect(m.db, collectInfo)
+				if err != nil {
+					m.mergeErr++
+					fmt.Printf("检验数据合并汇总数据冲突覆盖异常！！姓名【%s】,就诊卡号[%s]err：%s\n", dataLaboratory.Name,
+						dataLaboratory.VisitCardID, err.Error())
+					return err
+				}
+				m.mergeConflictUpdate++
+				return nil
+			}
 		}
-
-		fmt.Printf("检验数据合入汇总数据冲突新增成功！！姓名【%s】,就诊卡号[%s],新增汇总数据成功\n", dataLaboratory.Name,
-			dataLaboratory.VisitCardID)
 	}
 
+	// 走到这说明有冲突且无法合并 需要新增
+	collectInfo := m.getMergerCollectInfo(nil, dataLaboratory)
+	if collectInfo == nil {
+		fmt.Printf("检验数据匹配不到映射表，过滤.姓名【%s】,就诊卡号[%s],项目【%s】\n", dataLaboratory.Name,
+			dataLaboratory.VisitCardID, dataLaboratory.ProjectName)
+		return nil
+	}
+	collectInfo.IsConflict = 1
+	err = AddCollect(m.db, collectInfo)
+	if err != nil {
+		m.mergeErr++
+		fmt.Printf("检验数据合并汇总数据冲突新增异常！！姓名【%s】,就诊卡号[%s]err：%s\n", dataLaboratory.Name,
+			dataLaboratory.VisitCardID, err.Error())
+		return err
+	}
+	fmt.Printf("检验数据合并汇总数据冲突,时间不同新增数据！！姓名【%s】,就诊卡号[%s]\n", dataLaboratory.Name,
+		dataLaboratory.VisitCardID)
+	m.mergeConflictAdd++
 	return nil
 }
 func (m *LaboratoryService) checkMergerConflict(collectInfo *tables.TCollect, dataLaboratory *tables.TLaboratory) (isConflict bool) {

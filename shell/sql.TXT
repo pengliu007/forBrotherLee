@@ -288,7 +288,7 @@ CREATE TABLE if not exists `t_collect` (
 `f_201`   varchar(128) comment '肝穿是否出血',
 `f_202`   text comment '肝穿出血处理措施',
 `f_203`   varchar(128) comment '肝穿次数',
-`f_204`   varchar(128) comment '肝穿时间',
+`f_204`   int(11) comment '肝穿时间',
 `f_205`   text comment         '肝穿病理号',
 `f_206`   text comment         '肝穿病理结果',
 `f_207`   varchar(128) comment 'G',
@@ -331,6 +331,8 @@ CREATE TABLE if not exists `t_collect` (
         `f_244`   text comment '丙肝病毒定量',
         `f_245`   text comment '丙肝抗体定性',
         `f_246`   text comment '丙肝病毒基因分型',
+
+        `isConflict`   int default 0,
  `createTime` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '记录创建时间',
  `updateTime` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '记录最后更新时间',
  PRIMARY KEY (`id`),
@@ -339,3 +341,31 @@ CREATE TABLE if not exists `t_collect` (
  KEY `visitTime` (`visitTime`),
  KEY `updateTime` (`updateTime`)
 ) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8 COMMENT='总表';
+
+drop table t_pathology;
+CREATE TABLE `t_pathology` (
+ `id` bigint(20) NOT NULL AUTO_INCREMENT COMMENT '自增ID 策略id',
+ `name` varchar(255) NOT NULL COMMENT '患者姓名',
+ `visitCardId` varchar(255) NOT NULL COMMENT '就诊卡ID',
+ `visitTime` int(11) NOT NULL COMMENT '就诊时间',
+ `pathologyID` varchar(255) COMMENT '病理号',
+ `admissionNumber` varchar(255) COMMENT '住院号 对应主表来源号',
+ `age` varchar(10) NOT NULL COMMENT '年龄 ',
+ `sex` varchar(10) NOT NULL COMMENT '性别 ',
+ `pathologyResult` text COMMENT '病理结果',
+ `pathologyTime` int(11) NOT NULL COMMENT '肝穿时间 对应主表登机时间',
+
+ `createTime` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '记录创建时间',
+ `updateTime` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '记录最后更新时间',
+ PRIMARY KEY (`id`),
+ KEY `name` (`name`),
+ KEY `visitCardId` (`visitCardId`),
+ KEY `visitTime` (`visitTime`),
+ KEY `updateTime` (`updateTime`)
+) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8 COMMENT='肝穿表';
+
+use inspectionInfo;
+truncate table t_collect;
+set innodb_strict_mode=0;
+alter table t_collect modify column f_204  int default 0;
+

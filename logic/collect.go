@@ -664,7 +664,8 @@ func addFileRow(dataInfo *tables.TCollect, file *xlsx.File, visitTime string) er
 	cell = row.AddCell()
 	setCellValue(cell, dataInfo.F203)
 	cell = row.AddCell()
-	setCellValue(cell, dataInfo.F204)
+	//setCellValue(cell, dataInfo.F204)
+	cell.SetDateTimeWithFormat(float64(dataInfo.F204), xlsx.DefaultDateOptions.ExcelTimeFormat)
 	cell = row.AddCell()
 	setCellValue(cell, dataInfo.F205)
 	cell = row.AddCell()
@@ -1355,9 +1356,7 @@ func makeFiledFromCell(cells []*xlsx.Cell) (*tables.TCollect, error) {
 	if len(cells) >= 203 {
 		collectInfo.F203 = cells[202].Value
 	}
-	if len(cells) >= 204 {
-		collectInfo.F204 = cells[203].Value
-	}
+
 	if len(cells) >= 205 {
 		collectInfo.F205 = cells[204].Value
 	}
@@ -1495,6 +1494,22 @@ func makeFiledFromCell(cells []*xlsx.Cell) (*tables.TCollect, error) {
 		}
 	} else {
 		collectInfo.VisitTime = visitTimeInt
+	}
+
+	if len(cells) >= 204 && len(cells[203].Value) > 0 {
+		pathologyTimeInt, err := strconv.Atoi(strings.Trim(cells[203].Value, " "))
+		if err != nil {
+			pathologyTimeFloat, err := strconv.ParseFloat(strings.Trim(cells[203].Value, " "), 64)
+			if err != nil {
+				fmt.Printf("汇总表记录病理时间异常：姓名:%s，卡号:%s,时间【%s】\n",
+					cells[2].Value, cells[8].Value, cells[203].Value)
+			} else {
+				collectInfo.F204 = int(pathologyTimeFloat)
+			}
+		} else {
+			collectInfo.F204 = pathologyTimeInt
+		}
+
 	}
 
 	//c3, err := cells[3].GetTime(false)

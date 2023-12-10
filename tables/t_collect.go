@@ -20,7 +20,7 @@ const (
 		"f_187,f_188,f_189,f_190,f_191,f_192,f_193,f_194,f_195,f_196,f_197,f_198,f_199,f_200,f_201,f_202,f_203," +
 		"f_204,f_205,f_206,f_207,f_208,f_209,f_210,f_211,f_212,f_213,f_214,f_215,f_216,f_217,f_218,f_219,f_220," +
 		"f_221,f_222,f_223,f_224,f_225,f_226,f_227,f_228,f_229,f_230,f_231,f_232,f_233,f_234,f_235,f_236," +
-		"f_237,f_238,f_239,f_240,f_241,f_242,f_243,f_244,f_245,f_246,createTime,updateTime "
+		"f_237,f_238,f_239,f_240,f_241,f_242,f_243,f_244,f_245,f_246,IsConflict,createTime,updateTime "
 )
 
 // 总表
@@ -229,7 +229,7 @@ type TCollect struct {
 	F201        string `json:"f_201" gorm:"column:f_201"`             // 肝穿是否出血
 	F202        string `json:"f_202" gorm:"column:f_202"`             // 肝穿出血处理措施
 	F203        string `json:"f_203" gorm:"column:f_203"`             // 肝穿次数
-	F204        string `json:"f_204" gorm:"column:f_204"`             // 肝穿时间
+	F204        int    `json:"f_204" gorm:"column:f_204"`             // 肝穿时间
 	F205        string `json:"f_205" gorm:"column:f_205"`             // 肝穿病理号
 	F206        string `json:"f_206" gorm:"column:f_206"`             // 肝穿病理结果
 	F207        string `json:"f_207" gorm:"column:f_207"`             // G
@@ -272,8 +272,10 @@ type TCollect struct {
 	F244        string `json:"f_244" gorm:"column:f_244"`             // 丙肝病毒定量
 	F245        string `json:"f_245" gorm:"column:f_245"`             // 丙肝抗体定性
 	F246        string `json:"f_246" gorm:"column:f_246"`             // 丙肝病毒基因分型
-	CreateTime  string `json:"createTime" gorm:"column:createTime"`   // 记录创建时间
-	UpdateTime  string `json:"updateTime" gorm:"column:updateTime"`   // 记录最后更新时间
+
+	IsConflict int    `json:"isConflict" gorm:"column:isConflict"`
+	CreateTime string `json:"createTime" gorm:"column:createTime"` // 记录创建时间
+	UpdateTime string `json:"updateTime" gorm:"column:updateTime"` // 记录最后更新时间
 }
 
 func (m *TCollect) TableName() string {

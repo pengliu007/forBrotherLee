@@ -8,13 +8,17 @@ import (
 	"time"
 )
 
-func GetCollectList(db *gorm.DB, name string, visitCardID string, beginTime int, endTime int, order string) (
+func GetCollectList(db *gorm.DB, name string, visitCardID string, beginTime int, endTime int, order string,
+	isConflict string) (
 	collectList []*tables.TCollect, err error) {
 	collectList = make([]*tables.TCollect, 0)
 	orderStr := "visitTime " + order
 	db = db.Table(tables.TableCollect).Select(tables.TableCollectFields)
 	db = db.Where("name", name).Where("visitCardID", visitCardID).Where("visitTime>=?", beginTime).
 		Where("visitTime<=?", endTime)
+	if len(isConflict) > 0 {
+		db = db.Where("isConflict", isConflict)
+	}
 	err = db.Order(orderStr).Find(&collectList).Error
 	if nil != err {
 		fmt.Printf("获取总表数据异常 GetCollectList err：%s\n", err.Error())
