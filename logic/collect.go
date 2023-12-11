@@ -665,7 +665,12 @@ func addFileRow(dataInfo *tables.TCollect, file *xlsx.File, visitTime string) er
 	setCellValue(cell, dataInfo.F203)
 	cell = row.AddCell()
 	//setCellValue(cell, dataInfo.F204)
-	cell.SetDateTimeWithFormat(float64(dataInfo.F204), xlsx.DefaultDateOptions.ExcelTimeFormat)
+	if dataInfo.F204 > 0 {
+		cell.SetDateTimeWithFormat(float64(dataInfo.F204), xlsx.DefaultDateOptions.ExcelTimeFormat)
+	} else {
+		// 什么都不做相当于添加一个空单元格即可，但AddCell不能省 否则会单元格错乱 setCellValue(cell, "")
+	}
+
 	cell = row.AddCell()
 	setCellValue(cell, dataInfo.F205)
 	cell = row.AddCell()
