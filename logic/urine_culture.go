@@ -178,7 +178,7 @@ func (m *UrineCultureService) Merge() (err error) {
 		for _, dataInfo := range dataList {
 			if dataInfo.Name == dataToMerge.name && dataInfo.VisitCardID == dataToMerge.visitCardID {
 				// 判断时间是否短期检查，是的话判断写入第几个，保留多次的12和尾，若时间间隔超了则执行合并并重置后录入此条
-				if dataInfo.SampleNoTime-dataToMerge.beginTime <= 14 {
+				if dataInfo.SampleNoTime-dataToMerge.beginTime <= 20 {
 					if len(dataToMerge.first) <= 0 {
 						fmt.Printf("同一个人第1次 name[%s],id[%s]\n", dataToMerge.name, dataToMerge.visitCardID)
 						dataToMerge.first = dataInfo.MicroDataIDName
@@ -265,7 +265,7 @@ func (m *UrineCultureService) Merge() (err error) {
 func (m *UrineCultureService) mateAndWriteCollect(dataToMerge *DataToMerge) error {
 	// 查所有的 按old-new找合适的合并
 	collectList, err := GetCollectList(m.db, dataToMerge.name, dataToMerge.visitCardID,
-		dataToMerge.beginTime-30, dataToMerge.beginTime, "asc", "")
+		dataToMerge.beginTime-20, dataToMerge.beginTime, "asc", "")
 	if err != nil {
 		m.mergeErr++
 		return err

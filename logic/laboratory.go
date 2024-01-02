@@ -355,9 +355,9 @@ func (m *LaboratoryService) checkMergerConflict(collectInfo *tables.TCollect, da
 			isConflict = true
 		}
 	} else if strings.Trim(projectName, " ") == "抗线粒体M2" {
-		if len(collectInfo.F174) > 0 && projectResult != collectInfo.F174 {
-			isConflict = true
-		}
+		//if len(collectInfo.F174) > 0 && projectResult != collectInfo.F174 {
+		//	isConflict = true
+		//}
 	} else if strings.Trim(projectName, " ") == "pANCA" {
 		if len(collectInfo.F175) > 0 && projectResult != collectInfo.F175 {
 			isConflict = true
@@ -391,9 +391,9 @@ func (m *LaboratoryService) checkMergerConflict(collectInfo *tables.TCollect, da
 			isConflict = true
 		}
 	} else if strings.Trim(projectName, " ") == "抗Ro-52" {
-		if len(collectInfo.F150) > 0 && projectResult != collectInfo.F150 {
-			isConflict = true
-		}
+		//if len(collectInfo.F150) > 0 && projectResult != collectInfo.F150 {
+		//	isConflict = true
+		//}
 	} else if strings.Trim(projectName, " ") == "抗核抗体（1：10）" {
 		if len(collectInfo.F126) > 0 && projectResult != collectInfo.F126 {
 			isConflict = true
@@ -923,6 +923,11 @@ func (m *LaboratoryService) checkMergerConflict(collectInfo *tables.TCollect, da
 			isConflict = true
 		}
 	}
+	//这个不做冲突检测 else if strings.Trim(projectName, " ") == "核型" {
+	//	if len(collectInfo.F148) > 0 && projectResult != collectInfo.F148 {
+	//		isConflict = true
+	//	}
+	//}
 
 	return isConflict
 }
@@ -974,7 +979,9 @@ func (m *LaboratoryService) getMergerCollectInfo(collectInfo *tables.TCollect, d
 	} else if projectName == "抗PML" {
 		mergeCollectInfo.F169 = dataLaboratory.ProjectResult
 	} else if projectName == "抗线粒体M2" {
-		mergeCollectInfo.F174 = dataLaboratory.ProjectResult
+		if len(dataLaboratory.ProjectResult) > 0 {
+			mergeCollectInfo.F174 = dataLaboratory.ProjectResult
+		}
 	} else if projectName == "pANCA" {
 		mergeCollectInfo.F175 = dataLaboratory.ProjectResult
 	} else if projectName == "cANCA" {
@@ -992,7 +999,9 @@ func (m *LaboratoryService) getMergerCollectInfo(collectInfo *tables.TCollect, d
 	} else if projectName == "抗PM-Scl" {
 		mergeCollectInfo.F153 = dataLaboratory.ProjectResult
 	} else if projectName == "抗Ro-52" {
-		mergeCollectInfo.F150 = dataLaboratory.ProjectResult
+		if len(dataLaboratory.ProjectResult) > 0 {
+			mergeCollectInfo.F150 = dataLaboratory.ProjectResult
+		}
 	} else if projectName == "抗核抗体（1：10）" {
 		mergeCollectInfo.F126 = dataLaboratory.ProjectResult
 	} else if projectName == "抗核抗体（1：20）" {
@@ -1257,6 +1266,10 @@ func (m *LaboratoryService) getMergerCollectInfo(collectInfo *tables.TCollect, d
 		mergeCollectInfo.F244 = dataLaboratory.ProjectResult
 	} else if projectName == "丙肝抗体定性" {
 		mergeCollectInfo.F245 = dataLaboratory.ProjectResult
+	} else if projectName == "核型" {
+		if len(dataLaboratory.ProjectResult) > 0 {
+			mergeCollectInfo.F148 = dataLaboratory.ProjectResult
+		}
 	} else {
 		return nil
 	}
