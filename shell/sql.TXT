@@ -369,3 +369,24 @@ truncate table t_collect;
 set innodb_strict_mode=0;
 alter table t_collect modify column f_204  int default 0;
 
+use inspectionInfo;
+drop table t_bc;
+CREATE TABLE `t_bc` (
+ `id` bigint(20) NOT NULL AUTO_INCREMENT COMMENT '自增ID 策略id',
+ `name` varchar(255) NOT NULL COMMENT '患者姓名',
+ `visitCardId` varchar(255) NOT NULL COMMENT '就诊卡ID',
+ `visitTime` int(11) NOT NULL COMMENT '就诊时间',
+ `age` varchar(10) NOT NULL COMMENT '年龄 ',
+ `sex` varchar(10) NOT NULL COMMENT '性别 ',
+ `checkResult` text COMMENT '诊断结果',
+ `admissionNumber` varchar(255) COMMENT '住院号 对应主表来源号',
+
+ `createTime` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '记录创建时间',
+ `updateTime` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '记录最后更新时间',
+ PRIMARY KEY (`id`),
+ KEY `name` (`name`),
+ KEY `visitCardId` (`visitCardId`),
+ KEY `visitTime` (`visitTime`),
+ KEY `updateTime` (`updateTime`)
+) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8 COMMENT='b超表';
+
