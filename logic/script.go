@@ -20,7 +20,8 @@ type ScriptService struct {
 	laboratoryService     *LaboratoryService     // 检验科
 	urineCultureService   *UrineCultureService   // 尿培养
 	pathologyService      *PathologyService      // 病理
-	bcService             *BcService             // b超
+	//bcService             *BcService             // b超 老版的 废弃了
+	bcV2Service *BcV2Service // b超 新数据源的
 }
 
 func NewScriptService() *ScriptService {
@@ -32,7 +33,8 @@ func NewScriptService() *ScriptService {
 		laboratoryService:     NewLaboratoryService(),
 		urineCultureService:   NewUrineCultureService(),
 		pathologyService:      NewPathologyService(),
-		bcService:             NewBcService(),
+		//bcService:             NewBcService(),
+		bcV2Service: NewBcV2Service(),
 	}
 }
 
@@ -67,7 +69,8 @@ func (s *ScriptService) RunTask(args []string) error {
 		return err
 	}
 	// 填充b超数据到总表
-	err = s.bcService.Merge()
+	//err = s.bcService.Merge()
+	err = s.bcV2Service.Merge()
 	if err != nil {
 		fmt.Printf("填充b超数据到总表异常，err：%s\n", err.Error())
 		return err
@@ -115,7 +118,8 @@ func (s *ScriptService) InitDb() error {
 		return err
 	}
 
-	err = s.bcService.InitDb()
+	//err = s.bcService.InitDb()
+	err = s.bcV2Service.InitDb()
 	if err != nil {
 		return err
 	}
@@ -221,7 +225,8 @@ func (s *ScriptService) loadFile(fileType string, name string) (err error) {
 			return err
 		}
 	} else if fileType == "6" {
-		err = s.bcService.LoadFile(name)
+		//err = s.bcService.LoadFile(name)
+		err = s.bcV2Service.LoadFile(name)
 		if err != nil {
 			fmt.Printf("b超文件加载失败,err:%s", err.Error())
 			return err

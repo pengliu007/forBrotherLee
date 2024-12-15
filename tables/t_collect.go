@@ -20,7 +20,7 @@ const (
 		"f_187,f_188,f_189,f_190,f_191,f_192,f_193,f_194,f_195,f_196,f_197,f_198,f_199,f_200,f_201,f_202,f_203," +
 		"f_204,f_205,f_206,f_207,f_208,f_209,f_210,f_211,f_212,f_213,f_214,f_215,f_216,f_217,f_218,f_219,f_220," +
 		"f_221,f_222,f_223,f_224,f_225,f_226,f_227,f_228,f_229,f_230,f_231,f_232,f_233,f_234,f_235,f_236," +
-		"f_237,f_238,f_239,f_240,f_241,f_242,f_243,f_244,f_245,f_246,IsConflict,createTime,updateTime "
+		"f_237,f_238,f_239,f_240,f_241,f_242,f_243,f_244,f_245,f_246,f_247,f_248,f_249,IsConflict,createTime,updateTime "
 )
 
 // 总表
@@ -217,15 +217,15 @@ type TCollect struct {
 	F189        string `json:"f_189" gorm:"column:f_189"`             // 检测时长(s)
 	F190        string `json:"f_190" gorm:"column:f_190"`             // 成功总次数
 	F191        string `json:"f_191" gorm:"column:f_191"`             // B超诊断
-	F192        string `json:"f_192" gorm:"column:f_192"`             // 肝脏
-	F193        string `json:"f_193" gorm:"column:f_193"`             // 胆囊相关疾病
-	F194        string `json:"f_194" gorm:"column:f_194"`             // 脾脏
-	F195        string `json:"f_195" gorm:"column:f_195"`             // 门静脉
-	F196        string `json:"f_196" gorm:"column:f_196"`             // 脾静脉
-	F197        string `json:"f_197" gorm:"column:f_197"`             // 腹腔积液
-	F198        string `json:"f_198" gorm:"column:f_198"`             // 肝门部肿大淋巴结大小
-	F199        string `json:"f_199" gorm:"column:f_199"`             // 右侧颈动脉内中膜厚度（三次测量结果）
-	F200        string `json:"f_200" gorm:"column:f_200"`             // 甲状腺超声
+	F192        string `json:"f_192" gorm:"column:f_192"`             // 肝脏 一期没存东西 后面实际存：	检查所见
+	F193        string `json:"f_193" gorm:"column:f_193"`             // 胆囊相关疾病 一期没存东西 后面实际存：	肝脏
+	F194        string `json:"f_194" gorm:"column:f_194"`             // 脾脏 一期没存东西 后面实际存：	胆囊
+	F195        string `json:"f_195" gorm:"column:f_195"`             // 门静脉 一期没存东西 后面实际存：	胰腺
+	F196        string `json:"f_196" gorm:"column:f_196"`             // 脾静脉 一期没存东西 后面实际存：	脾脏
+	F197        string `json:"f_197" gorm:"column:f_197"`             // 腹腔积液 一期没存东西 后面实际存：	门静脉
+	F198        string `json:"f_198" gorm:"column:f_198"`             // 肝门部肿大淋巴结大小 一期没存东西 后面实际存：	脾静脉
+	F199        string `json:"f_199" gorm:"column:f_199"`             // 右侧颈动脉内中膜厚度（三次测量结果） 一期没存东西 后面实际存：	腹腔积液
+	F200        string `json:"f_200" gorm:"column:f_200"`             // 甲状腺超声 一期没存东西 后面实际存：	右侧颈总动脉内-中膜
 	F201        string `json:"f_201" gorm:"column:f_201"`             // 肝穿是否出血
 	F202        string `json:"f_202" gorm:"column:f_202"`             // 肝穿出血处理措施
 	F203        string `json:"f_203" gorm:"column:f_203"`             // 肝穿次数
@@ -272,6 +272,9 @@ type TCollect struct {
 	F244        string `json:"f_244" gorm:"column:f_244"`             // 丙肝病毒定量
 	F245        string `json:"f_245" gorm:"column:f_245"`             // 丙肝抗体定性
 	F246        string `json:"f_246" gorm:"column:f_246"`             // 丙肝病毒基因分型
+	F247        string `json:"f_247" gorm:"column:f_247"`             // 双肾
+	F248        string `json:"f_248" gorm:"column:f_248"`             // 甲状腺
+	F249        string `json:"f_249" gorm:"column:f_249"`             // 颈部
 
 	IsConflict int    `json:"isConflict" gorm:"column:isConflict"`
 	CreateTime string `json:"createTime" gorm:"column:createTime"` // 记录创建时间

@@ -7,4 +7,5 @@ const (
 	TableLaboratory     = "t_laboratory"
 	TablePathology      = "t_pathology"
 	TableBc             = "t_bc"
+	TableBcV2           = "t_bc_v2"
 )

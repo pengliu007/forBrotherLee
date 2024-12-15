@@ -153,7 +153,7 @@ func (m *CollectService) MakeNewCollectExcel(fileNum int) (err error) {
 		return errors.New("输出结果文件数量非法")
 	}
 	// 分批取数据 并写入excel，注意切换文件
-	numPre := (int(total) / fileNum)
+	numPre := int(total) / fileNum
 	if int(total)%fileNum != 0 {
 		numPre += 1
 	}
@@ -755,6 +755,12 @@ func addFileRow(dataInfo *tables.TCollect, file *xlsx.File, visitTime string) er
 	setCellValue(cell, dataInfo.F245)
 	cell = row.AddCell()
 	setCellValue(cell, dataInfo.F246)
+	cell = row.AddCell()
+	setCellValue(cell, dataInfo.F247)
+	cell = row.AddCell()
+	setCellValue(cell, dataInfo.F248)
+	cell = row.AddCell()
+	setCellValue(cell, dataInfo.F249)
 	return nil
 }
 
@@ -1487,6 +1493,15 @@ func makeFiledFromCell(cells []*xlsx.Cell) (*tables.TCollect, error) {
 	}
 	if len(cells) >= 246 {
 		collectInfo.F246 = cells[245].Value
+	}
+	if len(cells) >= 247 {
+		collectInfo.F247 = cells[246].Value
+	}
+	if len(cells) >= 248 {
+		collectInfo.F248 = cells[247].Value
+	}
+	if len(cells) >= 249 {
+		collectInfo.F249 = cells[248].Value
 	}
 	visitTimeInt, err := strconv.Atoi(strings.Trim(cells[3].Value, " "))
 	if err != nil {

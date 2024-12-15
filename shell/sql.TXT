@@ -276,15 +276,15 @@ CREATE TABLE if not exists `t_collect` (
 `f_189`   varchar(128) comment '检测时长(s)',
 `f_190`   varchar(128) comment '成功总次数',
 `f_191`   text comment         'B超诊断',
-`f_192`   text comment '肝脏',
-`f_193`   text comment '胆囊相关疾病',
-`f_194`   text comment         '脾脏',
-`f_195`   text comment '门静脉',
-`f_196`   text comment '脾静脉',
-`f_197`   text comment '腹腔积液',
-`f_198`   text comment '肝门部肿大淋巴结大小',
-`f_199`   text comment '右侧颈动脉内中膜厚度（三次测量结果）',
-`f_200`   text comment         '甲状腺超声',
+`f_192`   text comment '检查所见',
+`f_193`   text comment '肝脏',
+`f_194`   text comment         '胆囊',
+`f_195`   text comment '胰腺',
+`f_196`   text comment '脾脏',
+`f_197`   text comment '门静脉',
+`f_198`   text comment '脾静脉',
+`f_199`   text comment '腹腔积液',
+`f_200`   text comment         '右侧颈总动脉内-中膜',
 `f_201`   varchar(128) comment '肝穿是否出血',
 `f_202`   text comment '肝穿出血处理措施',
 `f_203`   varchar(128) comment '肝穿次数',
@@ -331,6 +331,9 @@ CREATE TABLE if not exists `t_collect` (
         `f_244`   text comment '丙肝病毒定量',
         `f_245`   text comment '丙肝抗体定性',
         `f_246`   text comment '丙肝病毒基因分型',
+        `f_247`   text comment '双肾',
+        `f_248`   text comment '甲状腺',
+        `f_249`   text comment '颈部',
 
         `isConflict`   int default 0,
  `createTime` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '记录创建时间',
@@ -390,3 +393,30 @@ CREATE TABLE `t_bc` (
  KEY `updateTime` (`updateTime`)
 ) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8 COMMENT='b超表';
 
+-- 202412
+drop table t_bc_v2;
+CREATE TABLE `t_bc_v2` (
+ `id` bigint(20) NOT NULL AUTO_INCREMENT COMMENT '自增ID 策略id',
+ `name` varchar(255) NOT NULL COMMENT '患者姓名',
+ `visitCardId` varchar(255) NOT NULL COMMENT '就诊卡ID',
+ `visitTime` int(11) NOT NULL COMMENT '就诊时间',
+ `age` varchar(10) NOT NULL COMMENT '年龄 ',
+ `sex` varchar(10) NOT NULL COMMENT '性别 ',
+ `checkResult` text COMMENT '诊断意见',
+ `checkFinding` text COMMENT '检查所见',
+ `admissionNumber` varchar(255) COMMENT '住院号 对应主表来源号',
+
+ `createTime` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '记录创建时间',
+ `updateTime` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '记录最后更新时间',
+ PRIMARY KEY (`id`),
+ KEY `name` (`name`),
+ KEY `visitCardId` (`visitCardId`),
+ KEY `visitTime` (`visitTime`),
+ KEY `updateTime` (`updateTime`)
+) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8 COMMENT='b超表v2';
+
+-- 主表加字段
+set innodb_strict_mode=0;
+alter table t_collect add f_247 text comment '双肾';
+alter table t_collect add f_248 text comment '甲状腺';
+alter table t_collect add f_249 text comment '颈部';
