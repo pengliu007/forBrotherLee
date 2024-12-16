@@ -24,19 +24,33 @@ type BcV2Service struct {
 }
 
 const (
-	F193Key  = " 肝脏 "
-	F194Key  = " 胆囊 "
-	F195Key  = " 胰腺 "
-	F196Key  = " 脾脏 "
-	F197Key  = " 门静脉 "
-	F198Key  = " 脾静脉 "
-	F199Key  = " 腹腔 "
+	F193Key1 = " 肝脏 "
+	F193Key2 = "  肝 脏："
+	F193Key3 = "肝 脏："
+	F193Key4 = "肝脏  "
+	F194Key1 = " 胆囊 "
+	F194Key2 = "  胆 囊："
+	F195Key1 = " 胰腺 "
+	F195Key2 = "  胰 腺："
+	F196Key1 = " 脾脏 "
+	F196Key2 = "  脾 脏："
+	F197Key1 = " 门静脉 "
+	F197Key2 = "  门静脉"
+	F198Key1 = " 脾静脉 "
+	F198Key2 = "  脾静脉"
+	F199Key1 = " 腹腔 "
+	F199Key2 = "腹 腔："
 	F200Key1 = " 右侧颈总动脉内-中膜"
 	F200Key2 = " 右侧颈总动脉内中膜"
-	F247Key  = " 双肾 "
-	F248Key  = " 甲状腺 "
+	F247Key1 = " 双肾 "
+	F247Key2 = "双肾  "
+	F247Key3 = " 双肾："
+	F248Key1 = " 甲状腺 "
+	F248Key2 = "    甲状腺"
+	F248Key3 = "甲状腺  "
 	F249Key1 = " 颈部 "
 	F249Key2 = "  双侧颈部"
+	F249Key3 = "  颈 部："
 )
 
 func NewBcV2Service() *BcV2Service {
@@ -220,22 +234,64 @@ func (m *BcV2Service) mateAndWriteCollect(dataBcV2 *tables.TBcV2) (err error) {
 			F192:        dataBcV2.CheckFinding,
 			F10:         dataBcV2.AdmissionNumber,
 		}
-		newCollectData.F193 = m.extractContent(F193Key, dataBcV2.CheckFinding)
-		newCollectData.F194 = m.extractContent(F194Key, dataBcV2.CheckFinding)
-		newCollectData.F195 = m.extractContent(F195Key, dataBcV2.CheckFinding)
-		newCollectData.F196 = m.extractContent(F196Key, dataBcV2.CheckFinding)
-		newCollectData.F197 = m.extractContent(F197Key, dataBcV2.CheckFinding)
-		newCollectData.F198 = m.extractContent(F198Key, dataBcV2.CheckFinding)
-		newCollectData.F199 = m.extractContent(F199Key, dataBcV2.CheckFinding)
+		newCollectData.F193 = m.extractContent(F193Key1, dataBcV2.CheckFinding)
+		if newCollectData.F193 == "" {
+			newCollectData.F193 = m.extractContent(F193Key2, dataBcV2.CheckFinding)
+			if newCollectData.F193 == "" {
+				newCollectData.F193 = m.extractContent(F193Key3, dataBcV2.CheckFinding)
+				if newCollectData.F193 == "" {
+					newCollectData.F193 = m.extractContent(F193Key4, dataBcV2.CheckFinding)
+				}
+			}
+		}
+		newCollectData.F194 = m.extractContent(F194Key1, dataBcV2.CheckFinding)
+		if newCollectData.F194 == "" {
+			newCollectData.F194 = m.extractContent(F194Key2, dataBcV2.CheckFinding)
+		}
+		newCollectData.F195 = m.extractContent(F195Key1, dataBcV2.CheckFinding)
+		if newCollectData.F195 == "" {
+			newCollectData.F195 = m.extractContent(F195Key2, dataBcV2.CheckFinding)
+		}
+		newCollectData.F196 = m.extractContent(F196Key1, dataBcV2.CheckFinding)
+		if newCollectData.F196 == "" {
+			newCollectData.F196 = m.extractContent(F196Key2, dataBcV2.CheckFinding)
+		}
+		newCollectData.F197 = m.extractContent(F197Key1, dataBcV2.CheckFinding)
+		if newCollectData.F197 == "" {
+			newCollectData.F197 = m.extractContent(F197Key2, dataBcV2.CheckFinding)
+		}
+		newCollectData.F198 = m.extractContent(F198Key1, dataBcV2.CheckFinding)
+		if newCollectData.F198 == "" {
+			newCollectData.F198 = m.extractContent(F198Key2, dataBcV2.CheckFinding)
+		}
+		newCollectData.F199 = m.extractContent(F199Key1, dataBcV2.CheckFinding)
+		if newCollectData.F199 == "" {
+			newCollectData.F199 = m.extractContent(F199Key2, dataBcV2.CheckFinding)
+		}
 		newCollectData.F200 = m.extractContent(F200Key1, dataBcV2.CheckFinding)
 		if newCollectData.F200 == "" {
 			newCollectData.F200 = m.extractContent(F200Key2, dataBcV2.CheckFinding)
 		}
-		newCollectData.F247 = m.extractContent(F247Key, dataBcV2.CheckFinding)
-		newCollectData.F248 = m.extractContent(F248Key, dataBcV2.CheckFinding)
+		newCollectData.F247 = m.extractContent(F247Key1, dataBcV2.CheckFinding)
+		if newCollectData.F247 == "" {
+			newCollectData.F247 = m.extractContent(F247Key2, dataBcV2.CheckFinding)
+			if newCollectData.F247 == "" {
+				newCollectData.F247 = m.extractContent(F247Key3, dataBcV2.CheckFinding)
+			}
+		}
+		newCollectData.F248 = m.extractContent(F248Key1, dataBcV2.CheckFinding)
+		if newCollectData.F248 == "" {
+			newCollectData.F248 = m.extractContent(F248Key2, dataBcV2.CheckFinding)
+			if newCollectData.F248 == "" {
+				newCollectData.F248 = m.extractContent(F248Key3, dataBcV2.CheckFinding)
+			}
+		}
 		newCollectData.F249 = m.extractContent(F249Key1, dataBcV2.CheckFinding)
 		if newCollectData.F249 == "" {
 			newCollectData.F249 = m.extractContent(F249Key2, dataBcV2.CheckFinding)
+			if newCollectData.F249 == "" {
+				newCollectData.F249 = m.extractContent(F249Key3, dataBcV2.CheckFinding)
+			}
 		}
 
 		err = AddCollect(m.db, newCollectData)
@@ -259,22 +315,64 @@ func (m *BcV2Service) mateAndWriteCollect(dataBcV2 *tables.TBcV2) (err error) {
 		collectData.F192 = dataBcV2.CheckFinding
 		collectData.F10 = dataBcV2.AdmissionNumber
 
-		collectData.F193 = m.extractContent(F193Key, dataBcV2.CheckFinding)
-		collectData.F194 = m.extractContent(F194Key, dataBcV2.CheckFinding)
-		collectData.F195 = m.extractContent(F195Key, dataBcV2.CheckFinding)
-		collectData.F196 = m.extractContent(F196Key, dataBcV2.CheckFinding)
-		collectData.F197 = m.extractContent(F197Key, dataBcV2.CheckFinding)
-		collectData.F198 = m.extractContent(F198Key, dataBcV2.CheckFinding)
-		collectData.F199 = m.extractContent(F199Key, dataBcV2.CheckFinding)
+		collectData.F193 = m.extractContent(F193Key1, dataBcV2.CheckFinding)
+		if collectData.F193 == "" {
+			collectData.F193 = m.extractContent(F193Key2, dataBcV2.CheckFinding)
+			if collectData.F193 == "" {
+				collectData.F193 = m.extractContent(F193Key3, dataBcV2.CheckFinding)
+				if collectData.F193 == "" {
+					collectData.F193 = m.extractContent(F193Key4, dataBcV2.CheckFinding)
+				}
+			}
+		}
+		collectData.F194 = m.extractContent(F194Key1, dataBcV2.CheckFinding)
+		if collectData.F194 == "" {
+			collectData.F194 = m.extractContent(F194Key2, dataBcV2.CheckFinding)
+		}
+		collectData.F195 = m.extractContent(F195Key1, dataBcV2.CheckFinding)
+		if collectData.F195 == "" {
+			collectData.F195 = m.extractContent(F195Key2, dataBcV2.CheckFinding)
+		}
+		collectData.F196 = m.extractContent(F196Key1, dataBcV2.CheckFinding)
+		if collectData.F196 == "" {
+			collectData.F196 = m.extractContent(F196Key2, dataBcV2.CheckFinding)
+		}
+		collectData.F197 = m.extractContent(F197Key1, dataBcV2.CheckFinding)
+		if collectData.F197 == "" {
+			collectData.F197 = m.extractContent(F197Key2, dataBcV2.CheckFinding)
+		}
+		collectData.F198 = m.extractContent(F198Key1, dataBcV2.CheckFinding)
+		if collectData.F198 == "" {
+			collectData.F198 = m.extractContent(F198Key2, dataBcV2.CheckFinding)
+		}
+		collectData.F199 = m.extractContent(F199Key1, dataBcV2.CheckFinding)
+		if collectData.F199 == "" {
+			collectData.F199 = m.extractContent(F199Key2, dataBcV2.CheckFinding)
+		}
 		collectData.F200 = m.extractContent(F200Key1, dataBcV2.CheckFinding)
 		if collectData.F200 == "" {
 			collectData.F200 = m.extractContent(F200Key2, dataBcV2.CheckFinding)
 		}
-		collectData.F247 = m.extractContent(F247Key, dataBcV2.CheckFinding)
-		collectData.F248 = m.extractContent(F248Key, dataBcV2.CheckFinding)
+		collectData.F247 = m.extractContent(F247Key1, dataBcV2.CheckFinding)
+		if collectData.F247 == "" {
+			collectData.F247 = m.extractContent(F247Key2, dataBcV2.CheckFinding)
+			if collectData.F247 == "" {
+				collectData.F247 = m.extractContent(F247Key3, dataBcV2.CheckFinding)
+			}
+		}
+		collectData.F248 = m.extractContent(F248Key1, dataBcV2.CheckFinding)
+		if collectData.F248 == "" {
+			collectData.F248 = m.extractContent(F248Key2, dataBcV2.CheckFinding)
+			if collectData.F248 == "" {
+				collectData.F248 = m.extractContent(F248Key3, dataBcV2.CheckFinding)
+			}
+		}
 		collectData.F249 = m.extractContent(F249Key1, dataBcV2.CheckFinding)
 		if collectData.F249 == "" {
 			collectData.F249 = m.extractContent(F249Key2, dataBcV2.CheckFinding)
+			if collectData.F249 == "" {
+				collectData.F249 = m.extractContent(F249Key3, dataBcV2.CheckFinding)
+			}
 		}
 		err = UpdateCollect(m.db, collectData)
 		if err != nil {
@@ -292,19 +390,33 @@ func (m *BcV2Service) extractContent(specifiedKeyword, paragraph string) string 
 	paragraph = normalizeSpaces(paragraph)
 	// 定义关键字集合
 	keywords := map[string]bool{
-		F193Key:  true,
-		F194Key:  true,
-		F195Key:  true,
-		F196Key:  true,
-		F197Key:  true,
-		F198Key:  true,
-		F199Key:  true,
+		F193Key1: true,
+		F193Key2: true,
+		F193Key3: true,
+		F193Key4: true,
+		F194Key1: true,
+		F194Key2: true,
+		F195Key1: true,
+		F195Key2: true,
+		F196Key1: true,
+		F196Key2: true,
+		F197Key1: true,
+		F197Key2: true,
+		F198Key1: true,
+		F198Key2: true,
+		F199Key1: true,
+		F199Key2: true,
 		F200Key1: true,
 		F200Key2: true,
-		F247Key:  true,
-		F248Key:  true,
+		F247Key1: true,
+		F247Key2: true,
+		F247Key3: true,
+		F248Key1: true,
+		F248Key2: true,
+		F248Key3: true,
 		F249Key1: true,
 		F249Key2: true,
+		F249Key3: true,
 	}
 	// 检查指定关键字是否在关键字集合中
 	if !keywords[specifiedKeyword] {
