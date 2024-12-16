@@ -234,65 +234,17 @@ func (m *BcV2Service) mateAndWriteCollect(dataBcV2 *tables.TBcV2) (err error) {
 			F192:        dataBcV2.CheckFinding,
 			F10:         dataBcV2.AdmissionNumber,
 		}
-		newCollectData.F193 = m.extractContent(F193Key1, dataBcV2.CheckFinding)
-		if newCollectData.F193 == "" {
-			newCollectData.F193 = m.extractContent(F193Key2, dataBcV2.CheckFinding)
-			if newCollectData.F193 == "" {
-				newCollectData.F193 = m.extractContent(F193Key3, dataBcV2.CheckFinding)
-				if newCollectData.F193 == "" {
-					newCollectData.F193 = m.extractContent(F193Key4, dataBcV2.CheckFinding)
-				}
-			}
-		}
-		newCollectData.F194 = m.extractContent(F194Key1, dataBcV2.CheckFinding)
-		if newCollectData.F194 == "" {
-			newCollectData.F194 = m.extractContent(F194Key2, dataBcV2.CheckFinding)
-		}
-		newCollectData.F195 = m.extractContent(F195Key1, dataBcV2.CheckFinding)
-		if newCollectData.F195 == "" {
-			newCollectData.F195 = m.extractContent(F195Key2, dataBcV2.CheckFinding)
-		}
-		newCollectData.F196 = m.extractContent(F196Key1, dataBcV2.CheckFinding)
-		if newCollectData.F196 == "" {
-			newCollectData.F196 = m.extractContent(F196Key2, dataBcV2.CheckFinding)
-		}
-		newCollectData.F197 = m.extractContent(F197Key1, dataBcV2.CheckFinding)
-		if newCollectData.F197 == "" {
-			newCollectData.F197 = m.extractContent(F197Key2, dataBcV2.CheckFinding)
-		}
-		newCollectData.F198 = m.extractContent(F198Key1, dataBcV2.CheckFinding)
-		if newCollectData.F198 == "" {
-			newCollectData.F198 = m.extractContent(F198Key2, dataBcV2.CheckFinding)
-		}
-		newCollectData.F199 = m.extractContent(F199Key1, dataBcV2.CheckFinding)
-		if newCollectData.F199 == "" {
-			newCollectData.F199 = m.extractContent(F199Key2, dataBcV2.CheckFinding)
-		}
-		newCollectData.F200 = m.extractContent(F200Key1, dataBcV2.CheckFinding)
-		if newCollectData.F200 == "" {
-			newCollectData.F200 = m.extractContent(F200Key2, dataBcV2.CheckFinding)
-		}
-		newCollectData.F247 = m.extractContent(F247Key1, dataBcV2.CheckFinding)
-		if newCollectData.F247 == "" {
-			newCollectData.F247 = m.extractContent(F247Key2, dataBcV2.CheckFinding)
-			if newCollectData.F247 == "" {
-				newCollectData.F247 = m.extractContent(F247Key3, dataBcV2.CheckFinding)
-			}
-		}
-		newCollectData.F248 = m.extractContent(F248Key1, dataBcV2.CheckFinding)
-		if newCollectData.F248 == "" {
-			newCollectData.F248 = m.extractContent(F248Key2, dataBcV2.CheckFinding)
-			if newCollectData.F248 == "" {
-				newCollectData.F248 = m.extractContent(F248Key3, dataBcV2.CheckFinding)
-			}
-		}
-		newCollectData.F249 = m.extractContent(F249Key1, dataBcV2.CheckFinding)
-		if newCollectData.F249 == "" {
-			newCollectData.F249 = m.extractContent(F249Key2, dataBcV2.CheckFinding)
-			if newCollectData.F249 == "" {
-				newCollectData.F249 = m.extractContent(F249Key3, dataBcV2.CheckFinding)
-			}
-		}
+		newCollectData.F193 = m.extractContentF193(dataBcV2.CheckFinding)
+		newCollectData.F194 = m.extractContentF194(dataBcV2.CheckFinding)
+		newCollectData.F195 = m.extractContentF195(dataBcV2.CheckFinding)
+		newCollectData.F196 = m.extractContentF196(dataBcV2.CheckFinding)
+		newCollectData.F197 = m.extractContentF197(dataBcV2.CheckFinding)
+		newCollectData.F198 = m.extractContentF198(dataBcV2.CheckFinding)
+		newCollectData.F199 = m.extractContentF199(dataBcV2.CheckFinding)
+		newCollectData.F200 = m.extractContentF200(dataBcV2.CheckFinding)
+		newCollectData.F247 = m.extractContentF247(dataBcV2.CheckFinding)
+		newCollectData.F248 = m.extractContentF248(dataBcV2.CheckFinding)
+		newCollectData.F249 = m.extractContentF249(dataBcV2.CheckFinding)
 
 		err = AddCollect(m.db, newCollectData)
 		if err != nil {
@@ -315,65 +267,18 @@ func (m *BcV2Service) mateAndWriteCollect(dataBcV2 *tables.TBcV2) (err error) {
 		collectData.F192 = dataBcV2.CheckFinding
 		collectData.F10 = dataBcV2.AdmissionNumber
 
-		collectData.F193 = m.extractContent(F193Key1, dataBcV2.CheckFinding)
-		if collectData.F193 == "" {
-			collectData.F193 = m.extractContent(F193Key2, dataBcV2.CheckFinding)
-			if collectData.F193 == "" {
-				collectData.F193 = m.extractContent(F193Key3, dataBcV2.CheckFinding)
-				if collectData.F193 == "" {
-					collectData.F193 = m.extractContent(F193Key4, dataBcV2.CheckFinding)
-				}
-			}
-		}
-		collectData.F194 = m.extractContent(F194Key1, dataBcV2.CheckFinding)
-		if collectData.F194 == "" {
-			collectData.F194 = m.extractContent(F194Key2, dataBcV2.CheckFinding)
-		}
-		collectData.F195 = m.extractContent(F195Key1, dataBcV2.CheckFinding)
-		if collectData.F195 == "" {
-			collectData.F195 = m.extractContent(F195Key2, dataBcV2.CheckFinding)
-		}
-		collectData.F196 = m.extractContent(F196Key1, dataBcV2.CheckFinding)
-		if collectData.F196 == "" {
-			collectData.F196 = m.extractContent(F196Key2, dataBcV2.CheckFinding)
-		}
-		collectData.F197 = m.extractContent(F197Key1, dataBcV2.CheckFinding)
-		if collectData.F197 == "" {
-			collectData.F197 = m.extractContent(F197Key2, dataBcV2.CheckFinding)
-		}
-		collectData.F198 = m.extractContent(F198Key1, dataBcV2.CheckFinding)
-		if collectData.F198 == "" {
-			collectData.F198 = m.extractContent(F198Key2, dataBcV2.CheckFinding)
-		}
-		collectData.F199 = m.extractContent(F199Key1, dataBcV2.CheckFinding)
-		if collectData.F199 == "" {
-			collectData.F199 = m.extractContent(F199Key2, dataBcV2.CheckFinding)
-		}
-		collectData.F200 = m.extractContent(F200Key1, dataBcV2.CheckFinding)
-		if collectData.F200 == "" {
-			collectData.F200 = m.extractContent(F200Key2, dataBcV2.CheckFinding)
-		}
-		collectData.F247 = m.extractContent(F247Key1, dataBcV2.CheckFinding)
-		if collectData.F247 == "" {
-			collectData.F247 = m.extractContent(F247Key2, dataBcV2.CheckFinding)
-			if collectData.F247 == "" {
-				collectData.F247 = m.extractContent(F247Key3, dataBcV2.CheckFinding)
-			}
-		}
-		collectData.F248 = m.extractContent(F248Key1, dataBcV2.CheckFinding)
-		if collectData.F248 == "" {
-			collectData.F248 = m.extractContent(F248Key2, dataBcV2.CheckFinding)
-			if collectData.F248 == "" {
-				collectData.F248 = m.extractContent(F248Key3, dataBcV2.CheckFinding)
-			}
-		}
-		collectData.F249 = m.extractContent(F249Key1, dataBcV2.CheckFinding)
-		if collectData.F249 == "" {
-			collectData.F249 = m.extractContent(F249Key2, dataBcV2.CheckFinding)
-			if collectData.F249 == "" {
-				collectData.F249 = m.extractContent(F249Key3, dataBcV2.CheckFinding)
-			}
-		}
+		collectData.F193 = m.extractContentF193(dataBcV2.CheckFinding)
+		collectData.F194 = m.extractContentF194(dataBcV2.CheckFinding)
+		collectData.F195 = m.extractContentF195(dataBcV2.CheckFinding)
+		collectData.F196 = m.extractContentF196(dataBcV2.CheckFinding)
+		collectData.F197 = m.extractContentF197(dataBcV2.CheckFinding)
+		collectData.F198 = m.extractContentF198(dataBcV2.CheckFinding)
+		collectData.F199 = m.extractContentF199(dataBcV2.CheckFinding)
+		collectData.F200 = m.extractContentF200(dataBcV2.CheckFinding)
+		collectData.F247 = m.extractContentF247(dataBcV2.CheckFinding)
+		collectData.F248 = m.extractContentF248(dataBcV2.CheckFinding)
+		collectData.F249 = m.extractContentF249(dataBcV2.CheckFinding)
+
 		err = UpdateCollect(m.db, collectData)
 		if err != nil {
 			m.mergeErr++
@@ -383,6 +288,109 @@ func (m *BcV2Service) mateAndWriteCollect(dataBcV2 *tables.TBcV2) (err error) {
 	}
 
 	return nil
+}
+
+func (m *BcV2Service) extractContentF193(paragraph string) string {
+
+	result := m.extractContent(F193Key1, paragraph)
+	if result == "" {
+		result = m.extractContent(F193Key2, paragraph)
+		if result == "" {
+			result = m.extractContent(F193Key3, paragraph)
+			if result == "" {
+				result = m.extractContent(F193Key4, paragraph)
+			}
+		}
+	}
+	return result
+}
+func (m *BcV2Service) extractContentF194(paragraph string) string {
+	result := m.extractContent(F194Key1, paragraph)
+	if result == "" {
+		result = m.extractContent(F194Key2, paragraph)
+	}
+	return result
+}
+
+func (m *BcV2Service) extractContentF195(paragraph string) string {
+	result := m.extractContent(F195Key1, paragraph)
+	if result == "" {
+		result = m.extractContent(F195Key2, paragraph)
+	}
+	return result
+}
+
+func (m *BcV2Service) extractContentF196(paragraph string) string {
+	result := m.extractContent(F196Key1, paragraph)
+	if result == "" {
+		result = m.extractContent(F196Key2, paragraph)
+	}
+	return result
+}
+
+func (m *BcV2Service) extractContentF197(paragraph string) string {
+	result := m.extractContent(F197Key1, paragraph)
+	if result == "" {
+		result = m.extractContent(F197Key2, paragraph)
+	}
+	return result
+}
+
+func (m *BcV2Service) extractContentF198(paragraph string) string {
+	result := m.extractContent(F198Key1, paragraph)
+	if result == "" {
+		result = m.extractContent(F198Key2, paragraph)
+	}
+	return result
+}
+
+func (m *BcV2Service) extractContentF199(paragraph string) string {
+	result := m.extractContent(F199Key1, paragraph)
+	if result == "" {
+		result = m.extractContent(F199Key2, paragraph)
+	}
+	return result
+}
+
+func (m *BcV2Service) extractContentF200(paragraph string) string {
+	result := m.extractContent(F200Key1, paragraph)
+	if result == "" {
+		result = m.extractContent(F200Key2, paragraph)
+	}
+	return result
+}
+
+func (m *BcV2Service) extractContentF247(paragraph string) string {
+	result := m.extractContent(F247Key1, paragraph)
+	if result == "" {
+		result = m.extractContent(F247Key2, paragraph)
+		if result == "" {
+			result = m.extractContent(F247Key3, paragraph)
+		}
+	}
+	return result
+}
+
+func (m *BcV2Service) extractContentF248(paragraph string) string {
+	result := m.extractContent(F248Key1, paragraph)
+	if result == "" {
+		result = m.extractContent(F248Key2, paragraph)
+		if result == "" {
+			result = m.extractContent(F248Key3, paragraph)
+		}
+	}
+	return result
+}
+
+func (m *BcV2Service) extractContentF249(paragraph string) string {
+	result := m.extractContent(F249Key1, paragraph)
+	if result == "" {
+		result = m.extractContent(F249Key2, paragraph)
+		if result == "" {
+			result = m.extractContent(F249Key3, paragraph)
+		}
+	}
+	return result
 }
 
 func (m *BcV2Service) extractContent(specifiedKeyword, paragraph string) string {
