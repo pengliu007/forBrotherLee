@@ -3,7 +3,7 @@ package tables
 const (
 	TableLiverStiffnessFields = "id,name,visitCardId,VisitTime,FiberScansTotalNum,FiberScansSucNum,FatAttenuation," +
 		"FatAttenuationQuartileDifference,Hardness,HardnessQuartileDifference,Phone,Height,Weight," +
-		"DetectionDuration,SucNums,createTime,updateTime "
+		"DetectionDuration,SucNums,createTime,updateTime,birthday "
 )
 
 type TLiverStiffness struct {
@@ -24,4 +24,6 @@ type TLiverStiffness struct {
 	SucNums                          string `json:"sucNums" gorm:"column:sucNums"`                                                   // 成功次数
 	CreateTime                       string `json:"createTime" gorm:"column:createTime"`                                             // 记录创建时间
 	UpdateTime                       string `json:"updateTime" gorm:"column:updateTime"`                                             // 记录最后更新时间
+
+	Birthday string `json:"birthday" gorm:"column:birthday"`
 }

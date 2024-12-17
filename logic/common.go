@@ -53,3 +53,12 @@ func UpdateCollect(db *gorm.DB, collectInfo *tables.TCollect) (err error) {
 	err = db.Limit(1).Updates(collectInfo).Error
 	return nil
 }
+
+func UpdateCollectByCond(db *gorm.DB, param, where map[string]interface{}) (err error) {
+	if len(param) <= 0 || len(where) <= 0 {
+		errors.New("updateCollectByCond param or where empty err")
+	}
+	err = db.Table(tables.TableCollect).Where(where).Updates(param).Error
+
+	return err
+}

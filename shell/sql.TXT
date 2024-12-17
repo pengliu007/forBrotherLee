@@ -416,7 +416,13 @@ CREATE TABLE `t_bc_v2` (
 ) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8 COMMENT='b超表v2';
 
 -- 主表加字段
+use inspectionInfo;
 set innodb_strict_mode=0;
 alter table t_collect add f_247 text comment '双肾';
 alter table t_collect add f_248 text comment '甲状腺';
 alter table t_collect add f_249 text comment '颈部';
+
+
+alter table t_liver_stiffness add birthday varchar(20) comment '出生日期';
+
+

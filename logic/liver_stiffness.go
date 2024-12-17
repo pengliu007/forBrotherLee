@@ -21,6 +21,8 @@ type LiverStiffnessService struct {
 	mergeConflict int
 	mergeFaild    int
 	db            *gorm.DB
+
+	alreadyFillBirthday map[string]bool
 }
 
 func NewLiverStiffnessService() *LiverStiffnessService {
@@ -91,6 +93,8 @@ func (m *LiverStiffnessService) LoadFile(fileName string) (err error) {
 			SucNums:                          cells[27].Value,
 			CreateTime:                       time.Now().Format("2006-01-02 15:04:05"),
 			UpdateTime:                       time.Now().Format("2006-01-02 15:04:05"),
+
+			Birthday: cells[2].Value,
 		}
 		if len(dataInfo.Name) <= 0 && len(dataInfo.VisitCardID) <= 0 {
 			fmt.Printf("姓名和就诊卡号均为空，直接过滤[deal_error] \n")
@@ -169,6 +173,11 @@ func (m *LiverStiffnessService) Merge() (err error) {
 }
 
 func (m *LiverStiffnessService) mateAndWriteCollect(dataLiverStiffness *tables.TLiverStiffness) (err error) {
+	// 新更新一下生日信息到总表再做后续的匹配合并
+	err = m.fillBirthdayToCollect(dataLiverStiffness)
+	if err != nil {
+		return err
+	}
 	// 匹配多条改为只匹配最近一条 所以两者排序都换了方向 只找非冲突添加的记录进行合并或覆盖
 	collectList, err := GetCollectList(m.db, dataLiverStiffness.Name, dataLiverStiffness.VisitCardID,
 		dataLiverStiffness.VisitTime-21, dataLiverStiffness.VisitTime, "desc", "0")
@@ -255,5 +264,26 @@ func (m *LiverStiffnessService) mateAndWriteCollect(dataLiverStiffness *tables.T
 	//		collectData.ID, dataLiverStiffness.ID, dataLiverStiffness.Name, dataLiverStiffness.VisitCardID)
 	//}
 
+	return nil
+}
+
+func (m *LiverStiffnessService) fillBirthdayToCollect(dataLiverStiffness *tables.TLiverStiffness) error {
+	key := dataLiverStiffness.Name + dataLiverStiffness.VisitCardID
+	if _, ok := m.alreadyFillBirthday[key]; ok {
+		return nil
+	}
+	if len(dataLiverStiffness.Birthday) <= 0 || len(dataLiverStiffness.Name) <= 0 ||
+		len(dataLiverStiffness.VisitCardID) <= 0 {
+		return nil
+	}
+	m.alreadyFillBirthday[key] = true
+	param := map[string]interface{}{"f_7": dataLiverStiffness.Birthday, "updateTime": time.Now().Format("2006-01-02 15:04:05")}
+	where := map[string]interface{}{"name": dataLiverStiffness.Name, "visitCardID": dataLiverStiffness.VisitCardID}
+
+	err := UpdateCollectByCond(m.db, param, where)
+	if err != nil {
+		fmt.Printf("UpdateCollectByCond name:%s,id:%s,err:%s", dataLiverStiffness.Name,
+			dataLiverStiffness.VisitCardID, err.Error())
+	}
 	return nil
 }
