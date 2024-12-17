@@ -13,7 +13,7 @@ import (
 	"strings"
 )
 
-// 肝硬度
+// LiverStiffnessService touch 肝硬度
 type LiverStiffnessService struct {
 	//fileHandle *xlsx.File
 	mergeErr      int
@@ -26,7 +26,9 @@ type LiverStiffnessService struct {
 }
 
 func NewLiverStiffnessService() *LiverStiffnessService {
-	return &LiverStiffnessService{}
+	return &LiverStiffnessService{
+		alreadyFillBirthday: map[string]bool{},
+	}
 }
 
 func (m *LiverStiffnessService) InitDb() (err error) {
