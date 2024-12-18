@@ -278,7 +278,6 @@ func (m *LiverStiffnessService) fillBirthdayToCollect(dataLiverStiffness *tables
 		len(dataLiverStiffness.VisitCardID) <= 0 {
 		return nil
 	}
-	m.alreadyFillBirthday[key] = true
 	param := map[string]interface{}{"f_7": dataLiverStiffness.Birthday, "updateTime": time.Now().Format("2006-01-02 15:04:05")}
 	where := map[string]interface{}{"name": dataLiverStiffness.Name, "visitCardID": dataLiverStiffness.VisitCardID}
 
@@ -286,6 +285,8 @@ func (m *LiverStiffnessService) fillBirthdayToCollect(dataLiverStiffness *tables
 	if err != nil {
 		fmt.Printf("UpdateCollectByCond name:%s,id:%s,err:%s", dataLiverStiffness.Name,
 			dataLiverStiffness.VisitCardID, err.Error())
+		return err
 	}
+	m.alreadyFillBirthday[key] = true
 	return nil
 }
